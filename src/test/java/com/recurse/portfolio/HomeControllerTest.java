@@ -1,4 +1,4 @@
-package com.recurse.portfolio.hello;
+package com.recurse.portfolio;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
