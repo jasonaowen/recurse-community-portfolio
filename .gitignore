@@ -26,6 +26,8 @@ hs_err_pid*
 
 .gradle/
 
+.env
+
 # JetBrains gitignore
 # https://github.com/github/gitignore/blob/7eef17f37c63ce3cbddbdd154ff836f370d0ad70/Global/JetBrains.gitignore
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm

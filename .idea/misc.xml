@@ -8,8 +8,9 @@
     </option>
   </component>
   <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RequestMapping" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="org.springframework.context.annotation.Configuration" />
+      <item index="1" class="java.lang.String" itemvalue="org.springframework.web.bind.annotation.RequestMapping" />
     </list>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
