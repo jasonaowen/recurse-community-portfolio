@@ -2,6 +2,7 @@ package com.recurse.portfolio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -16,6 +17,9 @@ import java.util.Map;
 @Component
 @Log
 public class RecurseOAuthSuccessHandler implements AuthenticationSuccessHandler {
+    @Autowired
+    UserRepository repository;
+
     @Override
     public void onAuthenticationSuccess(
         HttpServletRequest request,
@@ -31,6 +35,13 @@ public class RecurseOAuthSuccessHandler implements AuthenticationSuccessHandler 
                 .getAttributes();
             RecurseProfile profile = new ObjectMapper().convertValue(userAttributes, RecurseProfile.class);
             log.info("Profile: " + profile.toString());
+
+            User user = repository
+                .findByRecurseProfileId(profile.userId)
+                .orElseGet(() ->
+                    repository.save(new User(0, profile.userId, profile.name))
+                );
+            log.info("User: " + user.toString());
         }
         response.sendRedirect("/");
     }
