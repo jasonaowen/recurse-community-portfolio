@@ -9,6 +9,7 @@ env:
   global:
     - CLIENT_ID=_
     - CLIENT_SECRET=_
+    - ACCESS_TOKEN=_
     - JDBC_DATABASE_URL=jdbc:postgresql:portfolio
     - JDBC_DATABASE_USERNAME=postgres
     - JDBC_DATABASE_PASSWORD=

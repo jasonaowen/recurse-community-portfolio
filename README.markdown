@@ -63,11 +63,16 @@ the following information.
 
 To run the web app locally,
 you will need to configure a
-[Recurse Center OAuth application](https://www.recurse.com/settings/apps).
+both an OAuth application
+and a personal access token
+in your
+[Recurse Center app settings](https://www.recurse.com/settings/apps).
 Create an app with the redirect URI to
 `http://127.0.0.1:8080/login/oauth2/code/recurse`,
 then take the client ID and client secret
 and set the environment variables `CLIENT_ID` and `CLIENT_SECRET`.
+Create a personal access token
+and set the environment variable `ACCESS_TOKEN`.
 
 The app requires a
 [PostgreSQL](https://www.postgresql.org/)
@@ -80,12 +85,23 @@ and then
 Put the database URL and credentials in the `JDBC_DATABASE` variables
 in your `.env` file.
 
-Then, execute the `bootRun` task:
+Populate the database
+by running the API sync:
+
+```
+$ source .env
+$ ./gradlew bootRun --args="apiSync"
+```
+
+Then, execute the `bootRun` task
+to start the web server:
 
 ```
 $ source .env
 $ ./gradlew bootRun
 ```
+
+The server should now be accessible at http://127.0.0.1:8080/.
 
 <a href='https://www.recurse.com' title='Made with love at the Recurse Center'><img src='https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png' height='20px'/></a>
 ![Licensed under the AGPL, version 3](https://img.shields.io/badge/license-AGPL3-blue.svg)

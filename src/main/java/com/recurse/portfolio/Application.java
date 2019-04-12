@@ -12,6 +12,7 @@ public class Application {
     private static final List<String> REQUIRED_ENVIRONMENT_VARIABLES = List.of(
         "CLIENT_ID",
         "CLIENT_SECRET",
+        "ACCESS_TOKEN",
         "JDBC_DATABASE_URL",
         "JDBC_DATABASE_USERNAME",
         "JDBC_DATABASE_PASSWORD"
