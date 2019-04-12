@@ -1,4 +1,4 @@
-package com.recurse.portfolio;
+package com.recurse.portfolio.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private RecurseOAuthSuccessHandler recurseOAuthSuccessHandler;
+    private PortfolioOAuth2UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -17,9 +17,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .oauth2Login()
-            .successHandler(recurseOAuthSuccessHandler)
-            .and()
-            .oauth2Client()
+            .userInfoEndpoint()
+            .userService(userService)
         ;
     }
 }
