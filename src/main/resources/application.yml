@@ -1,0 +1,15 @@
+spring.security.oauth2.client:
+  registration:
+    recurse:
+      client-id: ${CLIENT_ID}
+      client-secret: ${CLIENT_SECRET}
+      client-name: Recurse Center
+      authorization-grant-type: authorization_code
+      redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+  provider:
+    recurse:
+      authorization-uri: https://www.recurse.com/oauth/authorize
+      token-uri: https://www.recurse.com/oauth/token
+      user-info-uri: https://www.recurse.com/api/v1/profiles/me
+      user-info-authentication-method: header
+      user-name-attribute: name
