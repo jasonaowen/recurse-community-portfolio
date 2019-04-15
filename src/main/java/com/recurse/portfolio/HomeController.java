@@ -13,14 +13,9 @@ public class HomeController {
         if (user == null) {
             return new ModelAndView("home");
         } else {
-            return secure(user);
+            ModelAndView mv = new ModelAndView("secure");
+            mv.addObject("username", user.getInternalName());
+            return mv;
         }
-    }
-
-    @RequestMapping("/secure")
-    public ModelAndView secure(@CurrentUser User user) {
-        ModelAndView mv = new ModelAndView("secure");
-        mv.addObject("username", user.getName());
-        return mv;
     }
 }
