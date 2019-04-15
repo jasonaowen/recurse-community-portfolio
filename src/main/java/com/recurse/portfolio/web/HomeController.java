@@ -1,4 +1,4 @@
-package com.recurse.portfolio;
+package com.recurse.portfolio.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
