@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title data-th-text="${project.name} + ' - Portfolio'">Project Page</title>
+</head>
+<body>
+<main>
+  <div>
+    Project name: <span data-th-text="${project.name}">name</span>
+  </div>
+  <div>
+    By:
+    <ul>
+      <li
+        data-th-each="author : ${authors}"
+      >
+        <a
+          data-th-href="@{/user/{id}(id=${author.userId})}"
+          data-th-text="${author.publicName}"
+        >
+          us
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    Public description:
+    <span data-th-text="${project.publicDescription}">
+      public description
+    </span>
+  </div>
+</main>
+</body>
+</html>

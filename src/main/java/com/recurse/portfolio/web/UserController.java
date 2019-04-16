@@ -27,7 +27,7 @@ public class UserController {
         @PathVariable Integer userId
     ) {
         User requestedUser = repository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(userId));
+            .orElseThrow(() -> new NotFoundException("user", userId));
 
         var policy = new VisibilityPolicy<>(
             requestedUser.getProfileVisibility(),
@@ -50,7 +50,7 @@ public class UserController {
         @PathVariable Integer userId
     ) {
         User requestedUser = repository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(userId));
+            .orElseThrow(() -> new NotFoundException("user", userId));
 
         var policy = new VisibilityPolicy<>(
             Visibility.PRIVATE,
@@ -74,7 +74,7 @@ public class UserController {
         User postedUser
     ) {
         User requestedUser = repository.findById(userId)
-            .orElseThrow(() -> new UserNotFoundException(userId));
+            .orElseThrow(() -> new NotFoundException("user", userId));
         if (!requestedUser.equals(currentUser)) {
             throw new VisibilityException(Visibility.PRIVATE);
         }

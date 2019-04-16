@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title data-th-text="${project.name} + ' - Portfolio'">My Project Page</title>
+</head>
+<body>
+<main>
+  <form
+    data-th-object="${project}"
+    data-th-action="@{/project/{id}/edit(id=${project.projectId})}"
+    method="post"
+  >
+    <div>
+      Project name:
+      <input
+        type="text"
+        name="name"
+        data-th-value="*{name}"
+      />
+    </div>
+    <div>
+      By:
+      <ul>
+        <li
+          data-th-each="author : ${authors}"
+        >
+          <a
+            data-th-href="@{/user/{id}(id=${author.userId})}"
+            data-th-text="${author.internalName}"
+          >
+            us
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      Public description:
+      <textarea
+        name="publicDescription"
+        data-th-text="*{publicDescription}"
+      >
+        example description
+      </textarea>
+    </div>
+    <div>
+      Internal description:
+      <textarea
+        name="internalDescription"
+        data-th-text="*{internalDescription}"
+      >
+        internal description
+      </textarea>
+    </div>
+    <div>
+      Private description:
+      <textarea
+        name="privateDescription"
+        data-th-text="*{privateDescription}"
+      >
+        private description
+      </textarea>
+    </div>
+    <div>
+      Visibility:
+      <select name="visibility">
+        <option
+          data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
+          data-th-value="${v}"
+          data-th-selected="*{visibility} == ${v}"
+          data-th-text="${v}"
+        >
+          visibility
+        </option>
+      </select>
+    </div>
+    <div>
+      <input type="submit"/>
+    </div>
+  </form>
+</main>
+</body>
+</html>
