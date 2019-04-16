@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Edit Profile - Portfolio</title>
 </head>
 <body>
-<header>
-  <h1>Recurse Center Community Portfolio</h1>
-</header>
-
-<div>
+<main>
   <form
     data-th-object="${user}"
     data-th-action="@{/user/{id}/edit(id=${user.userId})}"
@@ -82,15 +75,6 @@
       <input type="submit"/>
     </div>
   </form>
-</div>
-<footer>
-  Made with ❤️ with and for the
-  <a
-    href="https://www.recurse.com/scout/click?t=ac9449867495df95991da39e95823b65">
-    Recurse Center</a>
-  community.
-  (<a
-  href="https://github.com/jasonaowen/recurse-community-portfolio">Source</a>)
-</footer>
+</main>
 </body>
 </html>
