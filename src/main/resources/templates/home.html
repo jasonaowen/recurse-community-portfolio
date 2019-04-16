@@ -13,7 +13,7 @@
       <span data-th-text="${currentUser.name}">currently logged in user</span>
     </div>
     <div data-th-unless="${currentUser}">
-      <a href="/oauth2/authorization/recurse">Log In</a>
+      <a href="?login">Log In</a>
     </div>
   </header>
   <p>Content will go here.</p>

@@ -13,7 +13,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .anyRequest().permitAll()
+            .regexMatchers(".*\\?login$").authenticated()
             .and()
             .oauth2Login()
             .userInfoEndpoint()
