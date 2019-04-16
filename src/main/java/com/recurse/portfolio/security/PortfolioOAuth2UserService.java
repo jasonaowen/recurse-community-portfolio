@@ -31,15 +31,22 @@ public class PortfolioOAuth2UserService
         );
         User user = userRepository
             .findByRecurseProfileId(profile.getUserId())
-            .orElseGet(() ->
-                userRepository.save(new User(
-                        0,
-                        profile.getUserId(),
-                        profile.getName()
-                    )
-                )
-            );
-
+            .orElseGet(() -> createUserFromProfile(profile));
         return new PortfolioOAuth2User(oAuth2User, user);
+    }
+
+    private User createUserFromProfile(RecurseProfile profile) {
+        return userRepository.save(User.builder()
+            .userId(0)
+            .recurseProfileId(profile.getUserId())
+            .profileVisibility(Visibility.PRIVATE)
+            .internalName(profile.getName())
+            .publicName(profile.getName())
+            .internalImageUrl(profile.getImageUrl())
+            .publicImageUrl(null)
+            .internalBio("")
+            .publicBio("")
+            .build()
+        );
     }
 }

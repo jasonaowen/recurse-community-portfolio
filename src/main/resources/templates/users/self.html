@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title data-th-text="${user.internalName} + ' - Portfolio'">
+    My User Page - Portfolio
+  </title>
+</head>
+<body>
+<header>
+  <h1>Recurse Center Community Portfolio</h1>
+</header>
+<div>
+  <div>
+    My name (public): <span data-th-text="${user.publicName}">public name</span>
+  </div>
+  <div>
+    My name (internal): <span data-th-text="${user.internalName}">internal name</span>
+  </div>
+  <div>
+    Public image:
+    <img data-th-src="${user.publicImageUrl}"/>
+  </div>
+  <div>
+    Internal image:
+    <img data-th-src="${user.internalImageUrl}"/>
+  </div>
+  <div>
+    Public Bio:
+    <div data-th-text="${user.publicBio}">public bio</div>
+  </div>
+  <div>
+    Internal Bio:
+    <div data-th-text="${user.internalBio}">internal bio</div>
+  </div>
+  <div>
+    Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
+  </div>
+  <div>
+    <a data-th-href="@{/user/{id}/edit(id=${user.userId})}">Edit</a>
+  </div>
+</div>
+<footer>
+  Made with ❤️ with and for the
+  <a href="https://www.recurse.com/scout/click?t=ac9449867495df95991da39e95823b65">
+    Recurse Center</a>
+  community.
+  (<a href="https://github.com/jasonaowen/recurse-community-portfolio">Source</a>)
+</footer>
+</body>
+</html>

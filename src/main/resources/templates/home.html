@@ -10,7 +10,7 @@
   <header>
     <h1>Recurse Center Community Portfolio</h1>
     <div data-th-if="${currentUser}">Hello,
-      <span data-th-text="${currentUser.name}">currently logged in user</span>
+      <span data-th-text="${currentUser.internalName}">currently logged in user</span>
     </div>
     <div data-th-unless="${currentUser}">
       <a href="?login">Log In</a>
