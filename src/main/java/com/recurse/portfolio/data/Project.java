@@ -7,17 +7,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @Table("projects")
 public class Project {
     @Id
     Integer projectId;
-
-    @Column("author_id")
-    Set<ProjectAuthor> authors;
 
     Visibility visibility;
 
@@ -31,8 +26,4 @@ public class Project {
 
     @Column("description_public")
     String publicDescription;
-
-    public void addAuthor(User author) {
-        authors.add(new ProjectAuthor(author.getUserId()));
-    }
 }

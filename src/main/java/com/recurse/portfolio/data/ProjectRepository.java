@@ -1,5 +1,6 @@
 package com.recurse.portfolio.data;
 
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,4 +16,10 @@ public interface ProjectRepository
         "where pa.project_id = :projectId"
     )
     Set<User> findProjectAuthors(int projectId);
+
+    @Modifying
+    @Query("insert into project_authors(project_id, author_id) " +
+        "values (:projectId, :authorId) " +
+        "on conflict(author_id, project_id) do nothing")
+    void addProjectAuthor(int projectId, int authorId);
 }

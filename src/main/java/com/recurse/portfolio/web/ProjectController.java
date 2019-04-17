@@ -9,6 +9,7 @@ import com.recurse.portfolio.security.VisibilityException;
 import com.recurse.portfolio.security.VisibilityPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,40 @@ import java.util.Set;
 public class ProjectController {
     @Autowired
     ProjectRepository repository;
+
+    @GetMapping("/project/new")
+    public ModelAndView getNewProject(
+        @CurrentUser User currentUser
+    ) {
+        if (currentUser == null) {
+            throw new VisibilityException(Visibility.PRIVATE);
+        }
+        var mv = new ModelAndView("projects/new");
+        var project = new Project();
+        project.setVisibility(Visibility.PRIVATE);
+        mv.addObject("authors", Set.of(currentUser));
+        mv.addObject("project", project);
+        return mv;
+    }
+
+    @PostMapping("/project/")
+    @Transactional
+    public RedirectView postNewProject(
+        @CurrentUser User currentUser,
+        Project postedProject
+    ) {
+        if (currentUser == null) {
+            throw new VisibilityException(Visibility.PRIVATE);
+        }
+        Project newProject = new Project();
+        updateMutableProjectValues(newProject, postedProject);
+        Project savedProject = repository.save(newProject);
+        repository.addProjectAuthor(
+            savedProject.getProjectId(),
+            currentUser.getUserId()
+        );
+        return new RedirectView("/project/" + savedProject.getProjectId());
+    }
 
     @GetMapping("/project/{projectId}")
     public ModelAndView showUser(
@@ -47,7 +82,7 @@ public class ProjectController {
         return mv;
     }
 
-    @GetMapping(path = "/project/{projectId}/edit")
+    @GetMapping("/project/{projectId}/edit")
     public ModelAndView getEditProject(
         @CurrentUser User currentUser,
         @PathVariable Integer projectId
@@ -66,7 +101,7 @@ public class ProjectController {
         return mv;
     }
 
-    @PostMapping(path = "/project/{id}/edit")
+    @PostMapping("/project/{id}/edit")
     public RedirectView postEditProject(
         @CurrentUser User currentUser,
         @PathVariable(name = "id") Integer projectId,
