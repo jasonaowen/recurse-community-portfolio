@@ -51,6 +51,16 @@ $ ./gradlew test
 
 ## Running
 
+There are several environment variables the app needs.
+For convenience,
+these are consolidated in the file
+`.env.template`.
+Copy it to `.env`
+(which is ignored by git)
+with `cp .env.template .env`,
+and then edit it to add
+the following information.
+
 To run the web app locally,
 you will need to configure a
 [Recurse Center OAuth application](https://www.recurse.com/settings/apps).
@@ -59,20 +69,23 @@ Create an app with the redirect URI to
 then take the client ID and client secret
 and set the environment variables `CLIENT_ID` and `CLIENT_SECRET`.
 
+The app requires a
+[PostgreSQL](https://www.postgresql.org/)
+database.
+Configure your PostgreSQL server to
+[allow TCP/IP connections](https://jdbc.postgresql.org/documentation/head/prepare.html),
+[create a user with a password](https://www.postgresql.org/docs/current/app-createuser.html),
+and then
+[create a database](https://www.postgresql.org/docs/current/tutorial-createdb.html).
+Put the database URL and credentials in the `JDBC_DATABASE` variables
+in your `.env` file.
+
 Then, execute the `bootRun` task:
 
 ```
-$ CLIENT_ID=your_client_id \
-  CLIENT_SECRET=your_client_secret \
-  ./gradlew bootRun
+$ source .env
+$ ./gradlew bootRun
 ```
-
-As a convenience,
-you may wish to `cp .env.template .env`
-and edit it to add your client ID and secret.
-You can then `source .env`
-and, subsequently,
-`./gradlew bootRun`.
 
 <a href='https://www.recurse.com' title='Made with love at the Recurse Center'><img src='https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png' height='20px'/></a>
 ![Licensed under the AGPL, version 3](https://img.shields.io/badge/license-AGPL3-blue.svg)

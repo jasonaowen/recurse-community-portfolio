@@ -1,5 +1,16 @@
 dist: xenial
 language: java
 jdk: openjdk11
+addons:
+  postgresql: "10"
+before_script:
+  - createdb -U postgres portfolio
+env:
+  global:
+    - CLIENT_ID=_
+    - CLIENT_SECRET=_
+    - JDBC_DATABASE_URL=jdbc:postgresql:portfolio
+    - JDBC_DATABASE_USERNAME=postgres
+    - JDBC_DATABASE_PASSWORD=
 script:
 - ./gradlew build

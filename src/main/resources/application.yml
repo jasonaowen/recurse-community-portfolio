@@ -13,3 +13,7 @@ spring.security.oauth2.client:
       user-info-uri: https://www.recurse.com/api/v1/profiles/me
       user-info-authentication-method: header
       user-name-attribute: name
+spring.datasource:
+  url: ${JDBC_DATABASE_URL}
+  username: ${JDBC_DATABASE_USERNAME}
+  password: ${JDBC_DATABASE_PASSWORD}
