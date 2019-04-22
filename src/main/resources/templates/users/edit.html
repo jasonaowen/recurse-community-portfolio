@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Edit Profile - Portfolio</title>
+</head>
+<body>
+<header>
+  <h1>Recurse Center Community Portfolio</h1>
+</header>
+
+<div>
+  <form
+    data-th-object="${user}"
+    data-th-action="@{/user/{id}/edit(id=${user.userId})}"
+    method="post"
+  >
+    <div>
+      My name (public):
+      <input
+        type="text"
+        name="publicName"
+        data-th-value="*{publicName}"
+      />
+    </div>
+    <div>
+      My name (internal):
+      <input
+        type="text"
+        name="internalName"
+        data-th-value="*{internalName}"
+      />
+    </div>
+    <div>
+      Public image:
+      <input
+        type="text"
+        name="publicImageUrl"
+        data-th-value="*{publicImageUrl}"
+      />
+    </div>
+    <div>
+      Internal image:
+      <input
+        type="text"
+        name="internalImageUrl"
+        data-th-value="*{internalImageUrl}"
+      />
+    </div>
+    <div>
+      Public Bio:
+      <input
+        type="text"
+        name="publicBio"
+        data-th-value="*{publicBio}"
+      />
+    </div>
+    <div>
+      Internal Bio:
+      <input
+        type="text"
+        name="internalBio"
+        data-th-value="*{internalBio}"
+      />
+    </div>
+    <div>
+      Profile visibility:
+      <select name="profileVisibility">
+        <option
+          data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
+          data-th-value="${v}"
+          data-th-selected="*{profileVisibility} == ${v}"
+          data-th-text="${v}"
+        >
+          visibility
+        </option>
+      </select>
+    </div>
+    <div>
+      <input type="submit"/>
+    </div>
+  </form>
+</div>
+<footer>
+  Made with ❤️ with and for the
+  <a
+    href="https://www.recurse.com/scout/click?t=ac9449867495df95991da39e95823b65">
+    Recurse Center</a>
+  community.
+  (<a
+  href="https://github.com/jasonaowen/recurse-community-portfolio">Source</a>)
+</footer>
+</body>
+</html>
