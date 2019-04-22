@@ -1,0 +1,35 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  padding: .5em;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+}
+
+.header-element {
+  margin: 0em 0.5em;
+}
+
+.header-sitename {
+  font-size: medium;
+  margin-right: auto;
+}
+
+.header-user {
+  order: 9
+}
+
+main {
+  margin: 1em;
+}
+
+footer {
+  margin: auto 1em 1em 1em;
+  text-align: center;
+}
