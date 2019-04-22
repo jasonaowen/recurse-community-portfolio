@@ -1,4 +1,4 @@
-package com.recurse.portfolio;
+package com.recurse.portfolio.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,9 @@
 package com.recurse.portfolio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.recurse.portfolio.data.RecurseProfile;
+import com.recurse.portfolio.data.User;
+import com.recurse.portfolio.data.UserRepository;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,9 +40,13 @@ public class RecurseOAuthSuccessHandler implements AuthenticationSuccessHandler 
             log.info("Profile: " + profile.toString());
 
             User user = repository
-                .findByRecurseProfileId(profile.userId)
+                .findByRecurseProfileId(profile.getUserId())
                 .orElseGet(() ->
-                    repository.save(new User(0, profile.userId, profile.name))
+                    repository.save(new User(
+                        0,
+                        profile.getUserId(),
+                        profile.getName())
+                    )
                 );
             log.info("User: " + user.toString());
         }

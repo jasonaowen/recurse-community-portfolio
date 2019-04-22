@@ -1,9 +1,11 @@
-package com.recurse.portfolio;
+package com.recurse.portfolio.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NonNull;
+
+import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,6 +24,8 @@ public class RecurseProfile {
     @NonNull String imageUrl;
 
     @NonNull String directoryUrl;
+
+    @NonNull List<Stint> stints;
 
     public RecurseProfile() {}
 
