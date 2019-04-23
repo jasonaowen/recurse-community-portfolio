@@ -4,20 +4,35 @@
   <title data-th-text="${user.internalName} + ' - Portfolio'">
     Public User Page - Portfolio
   </title>
+  <link rel="stylesheet" href="../../static/style.css"/>
 </head>
 <body>
-<main>
-  <div>
-    Name: <span data-th-text="${user.publicName}">public name</span>
-  </div>
-  <div>
-    Image:
-    <img data-th-src="${user.publicImageUrl}"/>
-  </div>
-  <div>
-    Bio:
-    <div data-th-text="${user.publicBio}">public bio</div>
-  </div>
+<main class="user">
+  <section class="user-view">
+    <img
+      class="user-image"
+      src="../../static/user-placeholder.png"
+      data-th-src="${user.publicImageUrl}"
+    />
+    <div class="user-name">
+      <span data-th-text="${user.publicName}">Public Name</span>
+    </div>
+    <div class="user-bio">
+      Bio:
+      <p data-th-text="${user.publicBio}">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat
+        lobortis arcu vel feugiat. Nullam sagittis commodo turpis nec pretium.
+        Nulla bibendum ligula posuere malesuada posuere. Curabitur ullamcorper
+        sem ut lacus lacinia condimentum. Fusce quis tortor malesuada urna
+        posuere lacinia. Cras volutpat, augue ac semper ullamcorper, arcu metus
+        dapibus quam, ut dictum metus lacus vitae nibh. Pellentesque vitae diam
+        ut lacus efficitur mollis a id nisl. Phasellus ullamcorper ultricies
+        dolor. Maecenas condimentum magna sit amet venenatis sodales.
+        Pellentesque in pulvinar orci. Nulla facilisi. Vivamus justo lorem,
+        pretium sit amet pulvinar non, mattis eu metus.
+      </p>
+    </div>
+  </section>
 </main>
 </body>
 </html>

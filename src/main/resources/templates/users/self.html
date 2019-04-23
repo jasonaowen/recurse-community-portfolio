@@ -4,37 +4,71 @@
   <title data-th-text="${user.internalName} + ' - Portfolio'">
     My User Page - Portfolio
   </title>
+  <link rel="stylesheet" href="../../static/style.css"/>
 </head>
 <body>
-<main>
-  <div>
-    My name (public): <span data-th-text="${user.publicName}">public name</span>
-  </div>
-  <div>
-    My name (internal): <span data-th-text="${user.internalName}">internal name</span>
-  </div>
-  <div>
-    Public image:
-    <img data-th-src="${user.publicImageUrl}"/>
-  </div>
-  <div>
-    Internal image:
-    <img data-th-src="${user.internalImageUrl}"/>
-  </div>
-  <div>
-    Public Bio:
-    <div data-th-text="${user.publicBio}">public bio</div>
-  </div>
-  <div>
-    Internal Bio:
-    <div data-th-text="${user.internalBio}">internal bio</div>
-  </div>
-  <div>
-    Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
-  </div>
-  <div>
-    <a data-th-href="@{/user/{id}/edit(id=${user.userId})}">Edit</a>
-  </div>
+<main class="user">
+  <section class="user-view">
+    <h2 class="user-section-title">Internal</h2>
+    <img
+      class="user-image"
+      src="../../static/user-placeholder.png"
+      data-th-src="${user.internalImageUrl}"
+    />
+    <div class="user-name">
+      <span data-th-text="${user.internalName}">Internal Name</span>
+    </div>
+    <div class="user-bio">
+      Bio:
+      <p data-th-text="${user.internalBio}">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+    </div>
+  </section>
+  <section class="user-view">
+    <h2 class="user-section-title">Public</h2>
+    <img
+      class="user-image"
+      src="../../static/user-placeholder.png"
+      data-th-src="${user.publicImageUrl}"
+    />
+    <div class="user-name">
+      <span data-th-text="${user.publicName}">Public Name</span>
+    </div>
+    <div class="user-bio">
+      Bio:
+      <p data-th-text="${user.publicBio}">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat
+        lobortis arcu vel feugiat. Nullam sagittis commodo turpis nec pretium.
+        Nulla bibendum ligula posuere malesuada posuere. Curabitur ullamcorper
+        sem ut lacus lacinia condimentum. Fusce quis tortor malesuada urna
+        posuere lacinia. Cras volutpat, augue ac semper ullamcorper, arcu metus
+        dapibus quam, ut dictum metus lacus vitae nibh. Pellentesque vitae diam
+        ut lacus efficitur mollis a id nisl. Phasellus ullamcorper ultricies
+        dolor. Maecenas condimentum magna sit amet venenatis sodales.
+        Pellentesque in pulvinar orci. Nulla facilisi. Vivamus justo lorem,
+        pretium sit amet pulvinar non, mattis eu metus.
+      </p>
+    </div>
+  </section>
+  <section class="user-settings">
+    <h2 class="user-section-title">Settings</h2>
+    <div>
+      Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
+    </div>
+    <div>
+      <a
+        href="edit.html"
+        data-th-href="@{/user/{id}/edit(id=${user.userId})}"
+      >Edit</a>
+    </div>
+  </section>
 </main>
 </body>
 </html>
