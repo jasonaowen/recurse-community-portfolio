@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title data-th-text="${user.internalName} + ' - Portfolio'">
     My User Page - Portfolio
   </title>
 </head>
 <body>
-<header>
-  <h1>Recurse Center Community Portfolio</h1>
-</header>
-<div>
+<main>
   <div>
     My name (public): <span data-th-text="${user.publicName}">public name</span>
   </div>
@@ -41,13 +35,6 @@
   <div>
     <a data-th-href="@{/user/{id}/edit(id=${user.userId})}">Edit</a>
   </div>
-</div>
-<footer>
-  Made with ❤️ with and for the
-  <a href="https://www.recurse.com/scout/click?t=ac9449867495df95991da39e95823b65">
-    Recurse Center</a>
-  community.
-  (<a href="https://github.com/jasonaowen/recurse-community-portfolio">Source</a>)
-</footer>
+</main>
 </body>
 </html>
