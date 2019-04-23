@@ -2,80 +2,137 @@
 <html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
 <head>
   <title data-th-text="${project.name} + ' - Portfolio'">My Project Page</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
 </head>
 <body>
-<main>
+<main class="project">
   <form
     data-th-object="${project}"
     data-th-action="@{/project/{id}/edit(id=${project.projectId})}"
     method="post"
   >
-    <div>
-      Project name:
-      <input
-        type="text"
-        name="name"
-        data-th-value="*{name}"
-      />
-    </div>
-    <div>
-      By:
-      <ul>
-        <li
-          data-th-each="author : ${authors}"
-        >
-          <a
-            data-th-href="@{/user/{id}(id=${author.userId})}"
-            data-th-text="${author.internalName}"
+    <section class="project-input">
+      <label>
+        Project name:
+        <input
+          class="project-input-name"
+          type="text"
+          name="name"
+          placeholder="My Awesome Project"
+          data-th-value="*{name}"
+        />
+      </label>
+      <section class="project-authors">
+        By:
+        <ul class="project-authors-list">
+          <li
+            class="project-authors-list-item"
+            data-th-each="author : ${authors}"
           >
-            us
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div>
-      Public description:
-      <textarea
-        name="publicDescription"
-        data-th-text="*{publicDescription}"
-      >
-        example description
-      </textarea>
-    </div>
-    <div>
-      Internal description:
-      <textarea
-        name="internalDescription"
-        data-th-text="*{internalDescription}"
-      >
-        internal description
-      </textarea>
-    </div>
-    <div>
-      Private description:
-      <textarea
-        name="privateDescription"
-        data-th-text="*{privateDescription}"
-      >
-        private description
-      </textarea>
-    </div>
-    <div>
-      Visibility:
-      <select name="visibility">
-        <option
-          data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
-          data-th-value="${v}"
-          data-th-selected="*{visibility} == ${v}"
-          data-th-text="${v}"
-        >
-          visibility
-        </option>
-      </select>
-    </div>
-    <div>
-      <input type="submit"/>
-    </div>
+            <a
+              class="project-author-list-item-link"
+              href="../users/self.html"
+              data-th-href="@{/user/{id}(id=${author.userId})}"
+              data-th-text="${author.internalName}"
+            >
+              <img
+                class="project-author-list-item-image"
+                src="../../static/user-placeholder.png"
+                data-th-src="${author.internalImageUrl}"
+              />
+              My Self
+            </a>
+          </li>
+          <li
+            class="project-authors-list-item"
+            data-th-remove="all"
+          >
+            <a class="project-author-list-item-link" href="../users/peer.html">
+              <img
+                class="project-author-list-item-image"
+                src="../../static/user-placeholder.png"
+              />
+              Peer Author
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section class="project-descriptions">
+        <section class="project-description">
+          <h2 class="project-description-visibility">Private</h2>
+          <textarea
+            class="project-input-description"
+            name="privateDescription"
+            placeholder="Private project description, visible only to you"
+            data-th-text="*{privateDescription}"
+          >
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a
+justo et ipsum gravida cursus. Proin aliquet in libero id tempor.
+Pellentesque suscipit placerat egestas. Phasellus facilisis nibh leo,
+quis pretium odio gravida id. Morbi nibh diam, elementum posuere enim
+non, vestibulum accumsan nunc. Curabitur scelerisque pulvinar varius.
+Cras ultrices rutrum tristique.
+          </textarea>
+        </section>
+        <section class="project-description">
+          <h2 class="project-description-visibility">Internal</h2>
+          <textarea
+            class="project-input-description"
+            name="internalDescription"
+            placeholder="Internal project description, visible to your peers"
+            data-th-text="*{internalDescription}"
+          >
+Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
+euismod a urna ut, semper maximus tellus. Phasellus mollis volutpat
+dictum. Suspendisse potenti. Nam eu lectus ac quam mollis dictum sit
+amet finibus diam. Cras eget mauris semper, interdum nulla eu, bibendum
+orci. Quisque ut euismod elit. Quisque convallis enim nulla, et feugiat
+tortor tempus vel. Morbi diam augue, pulvinar at quam sit amet, gravida
+lacinia neque.
+        </textarea>
+        </section>
+        <section class="project-description">
+          <h2 class="project-description-visibility">Public</h2>
+          <textarea
+            class="project-input-description"
+            name="publicDescription"
+            data-th-text="*{publicDescription}"
+          >
+Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+cubilia Curae; Fusce orci eros, feugiat eu ipsum blandit, suscipit
+mollis diam. Ut egestas lacus faucibus, facilisis eros vitae, pharetra
+odio. Ut non tincidunt turpis. Aenean convallis eu sapien nec elementum.
+Fusce facilisis sapien risus, eget imperdiet nisi accumsan nec. Nam
+venenatis tellus aliquam ipsum placerat, nec finibus libero dignissim.
+Donec maximus ipsum lectus, non viverra orci iaculis a. Integer purus
+urna, malesuada eu risus volutpat, elementum fermentum elit. Proin ex
+velit, efficitur sit amet tempus sit amet, maximus id ex. Nam lacinia ut
+leo at dignissim. Donec vitae facilisis magna. Cras ipsum nibh, porta eu
+sem in, malesuada ornare tortor. Proin id fermentum justo, sed
+condimentum orci. Phasellus ac scelerisque elit. Aenean bibendum ut erat
+at egestas.
+        </textarea>
+        </section>
+      </section>
+      <section class="project-settings">
+        <div>
+          Visibility:
+          <select name="visibility">
+            <option
+              data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
+              data-th-value="${v}"
+              data-th-selected="*{visibility} == ${v}"
+              data-th-text="${v}"
+            >
+              visibility
+            </option>
+          </select>
+        </div>
+        <div>
+          <input type="submit"/>
+        </div>
+      </section>
+    </section>
   </form>
 </main>
 </body>

@@ -82,3 +82,55 @@ footer {
   margin: 0 auto;
   text-align: center;
 }
+
+.project-authors-list {
+  display: inline-flex;
+  margin: 0;
+}
+
+.project-authors-list-item {
+  display: inline;
+  margin: .5em;
+}
+
+.project-author-list-item-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-author-list-item-image {
+  height: 5em;
+  width: 5em;
+}
+
+.project-descriptions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.project-description-visibility {
+  margin: 0;
+  text-align: center;
+}
+
+.project-description {
+  max-width: 24em;
+  margin: 1em;
+}
+
+.project-settings {
+  text-align: center;
+}
+
+.project-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-input-description {
+  display: block;
+  width: 24em;
+  height: 32em;
+}
