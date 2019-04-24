@@ -1,0 +1,136 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header {
+  padding: .5em;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+}
+
+.header-element {
+  margin: 0em 0.5em;
+}
+
+.header-sitename {
+  font-size: medium;
+  margin-right: auto;
+}
+
+.header-user {
+  order: 9
+}
+
+main {
+  margin: 1em;
+}
+
+footer {
+  margin: auto 1em 1em 1em;
+  text-align: center;
+}
+
+.user {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.user-view {
+  display: flex;
+  flex-direction: column;
+  width: 24em;
+  max-width: 24em;
+}
+
+.user-section-title {
+  text-align: center;
+}
+
+.user-image {
+  margin: 0 auto;
+  width: 12em;
+}
+
+.user-name {
+  margin: 1em auto;
+}
+
+.user-bio {
+  max-width: 24em;
+}
+
+.user-input-name,
+.user-input-image {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+.user-input-bio {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 32em;
+}
+
+.user-settings {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.project-authors-list {
+  display: inline-flex;
+  margin: 0;
+}
+
+.project-authors-list-item {
+  display: inline;
+  margin: .5em;
+}
+
+.project-author-list-item-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-author-list-item-image {
+  height: 5em;
+  width: 5em;
+}
+
+.project-descriptions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.project-description-visibility {
+  margin: 0;
+  text-align: center;
+}
+
+.project-description {
+  max-width: 24em;
+  margin: 1em;
+}
+
+.project-settings {
+  text-align: center;
+}
+
+.project-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-input-description {
+  display: block;
+  width: 24em;
+  height: 32em;
+}

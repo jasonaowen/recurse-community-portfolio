@@ -2,43 +2,83 @@
 <html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
 <head>
   <title data-th-text="${project.name} + ' - Portfolio'">Project Page</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
 </head>
 <body>
-<main>
-  <div>
-    Project name: <span data-th-text="${project.name}">name</span>
-  </div>
-  <div>
+<main class="project">
+  <h1
+    class="project-name"
+    data-th-text="${project.name}"
+  >
+    Project Name
+  </h1>
+  <section class="project-authors">
     By:
-    <ul>
+    <ul class="project-authors-list">
       <li
+        class="project-authors-list-item"
         data-th-each="author : ${authors}"
       >
         <a
+          class="project-author-list-item-link"
+          href="../users/peer.html"
           data-th-href="@{/user/{id}(id=${author.userId})}"
           data-th-text="${author.internalName}"
         >
-          us
+          <img
+            class="project-author-list-item-image"
+            src="../../static/user-placeholder.png"
+            data-th-src="${author.internalImageUrl}"
+          />
+          Peer Author
+        </a>
+      </li>
+      <li
+        class="project-authors-list-item"
+        data-th-remove="all"
+      >
+        <a class="project-author-list-item-link" href="../users/peer.html">
+          <img
+            class="project-author-list-item-image"
+            src="../../static/user-placeholder.png"
+          />
+          Another Peer
         </a>
       </li>
     </ul>
-  </div>
-  <div>
-    Public description:
-    <span data-th-text="${project.publicDescription}">
-      public description
-    </span>
-  </div>
-  <div>
-    Internal description:
-    <span data-th-text="${project.internalDescription}">
-      internal description
-    </span>
-  </div>
-  <div>
-    Visibility:
-    <span data-th-text="${project.visibility}">visibility</span>
-  </div>
+  </section>
+  <section class="project-descriptions">
+    <section class="project-description">
+      <h2 class="project-description-visibility">Internal</h2>
+      <p data-th-text="${project.internalDescription}">
+        Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
+        euismod a urna ut, semper maximus tellus. Phasellus mollis volutpat
+        dictum. Suspendisse potenti. Nam eu lectus ac quam mollis dictum sit
+        amet finibus diam. Cras eget mauris semper, interdum nulla eu, bibendum
+        orci. Quisque ut euismod elit. Quisque convallis enim nulla, et feugiat
+        tortor tempus vel. Morbi diam augue, pulvinar at quam sit amet, gravida
+        lacinia neque.
+      </p>
+    </section>
+    <section class="project-description">
+      <h2 class="project-description-visibility">Public</h2>
+      <p data-th-text="${project.publicDescription}">
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+        cubilia Curae; Fusce orci eros, feugiat eu ipsum blandit, suscipit
+        mollis diam. Ut egestas lacus faucibus, facilisis eros vitae, pharetra
+        odio. Ut non tincidunt turpis. Aenean convallis eu sapien nec elementum.
+        Fusce facilisis sapien risus, eget imperdiet nisi accumsan nec. Nam
+        venenatis tellus aliquam ipsum placerat, nec finibus libero dignissim.
+        Donec maximus ipsum lectus, non viverra orci iaculis a. Integer purus
+        urna, malesuada eu risus volutpat, elementum fermentum elit. Proin ex
+        velit, efficitur sit amet tempus sit amet, maximus id ex. Nam lacinia ut
+        leo at dignissim. Donec vitae facilisis magna. Cras ipsum nibh, porta eu
+        sem in, malesuada ornare tortor. Proin id fermentum justo, sed
+        condimentum orci. Phasellus ac scelerisque elit. Aenean bibendum ut erat
+        at egestas.
+      </p>
+    </section>
+  </section>
 </main>
 </body>
 </html>

@@ -5,21 +5,26 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title data-th-replace="${title}">Recurse Center Community Portfolio</title>
+  <link
+    rel="stylesheet"
+    href="../static/style.css"
+    data-th-href="@{/style.css}"
+  />
 </head>
 <body>
   <header>
-    <h1>Recurse Center Community Portfolio</h1>
-    <div data-th-if="${currentUser}">
-      <div>Hello,
-        <span data-th-text="${currentUser.internalName}">
-          currently logged in user
-        </span>!
-      </div>
-      <div>
-        <a href="/project/new">Create a new project</a>
-      </div>
+    <h1 class="header-element header-sitename">
+      Recurse Center Community Portfolio
+    </h1>
+    <div class="header-element header-user" data-th-if="${currentUser}">
+      Hello,
+      <span data-th-text="${currentUser.internalName}">
+        currently logged in user</span>!
     </div>
-    <div data-th-unless="${currentUser}">
+    <div class="header-element header-new-project" data-th-if="${currentUser}">
+      <a href="/project/new">Create a new project</a>
+    </div>
+    <div class="header-element header-login" data-th-unless="${currentUser}">
       <a href="?login">Log In</a>
     </div>
   </header>
