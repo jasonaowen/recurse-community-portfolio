@@ -14,6 +14,10 @@ meaning that it respects authors' privacy and is uncurated.
 Read more about the project [goals](docs/Goals.markdown)
 and [features](docs/Features.markdown).
 
+Thank you to each of the
+[contributors](CONTRIBUTORS.markdown)
+who have made this project better!
+
 # Getting Started
 
 This project is written in Java 11,
