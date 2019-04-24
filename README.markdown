@@ -103,5 +103,67 @@ $ ./gradlew bootRun
 
 The server should now be accessible at http://127.0.0.1:8080/.
 
+## Deploying
+
+### Heroku
+
+This app can be deployed to Heroku.
+
+First, create an application:
+
+```sh
+$ heroku apps:create
+```
+
+Create an OAuth application
+and a personal access token
+in your
+[Recurse Center app settings](https://www.recurse.com/settings/apps).
+Set the OAuth callback URL to be
+`https://your-application-name.herokuapp.com/login/oauth2/code/recurse`.
+Configure your Heroku app with the credentials:
+
+
+```sh
+$ heroku config:set \
+    ACCESS_TOKEN=your_access_token
+    CLIENT_ID=your_client_id \
+    CLIENT_SECRET=your_client_secret
+```
+
+Install the
+[Heroku PostgreSQL add-on](https://devcenter.heroku.com/articles/heroku-postgresql):
+
+```sh
+$ heroku addons:create heroku-postgresql:hobby-dev
+```
+
+(Heroku
+[automatically configures](https://devcenter.heroku.com/articles/connecting-to-relational-databases-on-heroku-with-java)
+the
+`JDBC_DATABASE_URL`,
+`JDBC_DATABASE_USERNAME`,
+and
+`JDBC_DATABASE_PASSWORD`
+environment variables
+when it detects a Java application.)
+
+Creating the application
+on the command line
+should automatically configure a new git remote.
+Push the code to Heroku:
+
+```sh
+$ git push heroku master
+```
+
+Then, populate the database:
+
+```sh
+$ heroku run 'java $JAVA_OPTS -jar build/libs/*.jar apiSync'
+```
+
+Your Heroku instance should be ready to use!
+
 <a href='https://www.recurse.com' title='Made with love at the Recurse Center'><img src='https://cloud.githubusercontent.com/assets/2883345/11325206/336ea5f4-9150-11e5-9e90-d86ad31993d8.png' height='20px'/></a>
 ![Licensed under the AGPL, version 3](https://img.shields.io/badge/license-AGPL3-blue.svg)
