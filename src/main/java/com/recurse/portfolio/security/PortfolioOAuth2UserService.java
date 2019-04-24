@@ -37,7 +37,7 @@ public class PortfolioOAuth2UserService
 
     private User createUserFromProfile(RecurseProfile profile) {
         return userRepository.save(User.builder()
-            .userId(0)
+            .userId(null)
             .recurseProfileId(profile.getUserId())
             .profileVisibility(Visibility.PRIVATE)
             .internalName(profile.getName())
