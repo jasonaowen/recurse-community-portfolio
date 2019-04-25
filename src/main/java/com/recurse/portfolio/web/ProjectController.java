@@ -58,7 +58,7 @@ public class ProjectController {
     }
 
     @GetMapping("/project/{projectId}")
-    public ModelAndView showUser(
+    public ModelAndView showProject(
         @CurrentUser User currentUser,
         @PathVariable Integer projectId
     ) {
