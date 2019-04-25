@@ -18,8 +18,11 @@
     </h1>
     <div class="header-element header-user" data-th-if="${currentUser}">
       Hello,
-      <span data-th-text="${currentUser.internalName}">
-        currently logged in user</span>!
+      <a
+        href="users/self.html"
+        data-th-href="@{/user/{id}(id=${currentUser.userId})}"
+        data-th-text="${currentUser.internalName}">
+        currently logged in user</a>!
     </div>
     <div class="header-element header-new-project" data-th-if="${currentUser}">
       <a href="/project/new">Create a new project</a>
