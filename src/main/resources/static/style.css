@@ -34,7 +34,7 @@ footer {
   text-align: center;
 }
 
-.user {
+.user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
