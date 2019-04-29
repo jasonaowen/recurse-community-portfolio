@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
+
 @Controller
 @Log
 public class UserController {
@@ -39,6 +41,13 @@ public class UserController {
         ModelAndView mv = new ModelAndView(
             policy.evaluate(requestedUser, currentUser)
         );
+
+        requestedUser.setPublicBio(renderMarkdownToHtml(
+            requestedUser.getPublicBio()
+        ));
+        requestedUser.setInternalBio(renderMarkdownToHtml(
+            requestedUser.getInternalBio()
+        ));
 
         mv.addObject("user", requestedUser);
         return mv;

@@ -18,6 +18,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Set;
 
+import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
+
 @Controller
 public class ProjectController {
     @Autowired
@@ -76,6 +78,16 @@ public class ProjectController {
         ModelAndView mv = new ModelAndView(
             policy.evaluate(authors, currentUser)
         );
+
+        project.setPublicDescription(renderMarkdownToHtml(
+            project.getPublicDescription()
+        ));
+        project.setInternalDescription(renderMarkdownToHtml(
+            project.getInternalDescription()
+        ));
+        project.setPrivateDescription(renderMarkdownToHtml(
+            project.getPrivateDescription()
+        ));
 
         mv.addObject("project", project);
         mv.addObject("authors", authors);
