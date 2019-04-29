@@ -1,5 +1,6 @@
 package com.recurse.portfolio.web;
 
+import com.recurse.portfolio.data.Project;
 import com.recurse.portfolio.data.User;
 import com.recurse.portfolio.data.UserRepository;
 import com.recurse.portfolio.security.CurrentUser;
@@ -15,11 +16,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+import java.util.function.Function;
+
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
 
 @Controller
 @Log
 public class UserController {
+    private static final List<String> ALL_VISIBILITIES = List.of(
+        Visibility.PUBLIC.toString(),
+        Visibility.INTERNAL.toString(),
+        Visibility.PRIVATE.toString()
+    );
+    private static final List<String> PEER_VISIBILITIES = List.of(
+        Visibility.PUBLIC.toString(),
+        Visibility.INTERNAL.toString()
+    );
+    private static final List<String> PUBLIC_VISIBILITIES = List.of(
+        Visibility.PUBLIC.toString()
+    );
+
     @Autowired
     UserRepository repository;
 
@@ -33,14 +50,13 @@ public class UserController {
 
         var policy = new VisibilityPolicy<>(
             requestedUser.getProfileVisibility(),
-            "users/self",
-            "users/peer",
-            "users/public"
+            getView("users/self", ALL_VISIBILITIES),
+            getView("users/peer", PEER_VISIBILITIES),
+            getView("users/public", PUBLIC_VISIBILITIES)
         );
 
-        ModelAndView mv = new ModelAndView(
-            policy.evaluate(requestedUser, currentUser)
-        );
+        ModelAndView mv = policy.evaluate(requestedUser, currentUser)
+            .apply(userId);
 
         requestedUser.setPublicBio(renderMarkdownToHtml(
             requestedUser.getPublicBio()
@@ -49,8 +65,22 @@ public class UserController {
             requestedUser.getInternalBio()
         ));
 
-        mv.addObject("user", requestedUser);
-        return mv;
+        return mv.addObject("user", requestedUser);
+    }
+
+    private Function<Integer, ModelAndView> getView(
+        String viewName,
+        List<String> visibilities
+    ) {
+        return (authorId) -> {
+            ModelAndView mv = new ModelAndView(viewName);
+            List<Project> projects = repository.findProjectsByAuthor(
+                authorId,
+                visibilities
+            );
+            mv.addObject("projects", projects);
+            return mv;
+        };
     }
 
     @GetMapping("/user/{userId}/edit")

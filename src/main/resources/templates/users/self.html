@@ -64,7 +64,7 @@
     </section>
   </section>
   <section class="user-settings">
-    <h2 class="user-section-title">Settings</h2>
+    <h2 class="user-settings-title">Settings</h2>
     <div>
       Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
     </div>
@@ -74,6 +74,11 @@
         data-th-href="@{/user/{id}/edit(id=${user.userId})}"
       >Edit</a>
     </div>
+  </section>
+  <section
+    data-th-replace="~{users/projects :: user-projects}"
+  >
+    Project List
   </section>
 </main>
 </body>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Author Project List Fragment</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<section
+  class="user-projects"
+  data-th-fragment="user-projects"
+>
+  <h2 class="user-projects-title">Projects</h2>
+  <ul class="user-project-list">
+    <li
+      class="user-project-list-item"
+      data-th-each="project : ${projects}"
+    >
+      <a
+        href="../projects/public.html"
+        data-th-href="@{/project/{id}(id=${project.projectId})}"
+        data-th-text="${project.name}"
+      >Project Name</a>
+    </li>
+    <li
+      class="user-project-list-item"
+      data-th-remove="all"
+    >
+      <a href="../projects/public.html">Second Project</a>
+    </li>
+  </ul>
+</section>
+</body>
+</html>
