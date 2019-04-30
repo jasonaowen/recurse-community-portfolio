@@ -12,16 +12,18 @@
     method="post"
   >
     <section class="project-input">
-      <label>
-        Project name:
-        <input
-          class="project-input-name"
-          type="text"
-          name="name"
-          placeholder="My Awesome Project"
-          data-th-value="*{name}"
-        />
-      </label>
+      <section class="project-input-name">
+        <label class="project-input-name-label">
+          Project Name
+          <input
+            class="project-input-name-input"
+            type="text"
+            name="name"
+            placeholder="My Awesome Project"
+            data-th-value="*{name}"
+          />
+        </label>
+      </section>
       <section class="project-authors">
         By:
         <ul class="project-authors-list">

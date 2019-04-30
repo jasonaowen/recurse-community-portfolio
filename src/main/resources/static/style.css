@@ -83,6 +83,10 @@ footer {
   text-align: center;
 }
 
+.project-authors {
+  text-align: center;
+}
+
 .project-authors-list {
   display: inline-flex;
   margin: 0;
@@ -102,6 +106,26 @@ footer {
 .project-author-list-item-image {
   height: 5em;
   width: 5em;
+}
+
+.project-input-name {
+  text-align: center;
+}
+
+.project-input-name-label {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.project-input-name-input {
+  display: block;
+  font-size: x-large;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.project-name {
+  text-align: center;
 }
 
 .project-descriptions {
