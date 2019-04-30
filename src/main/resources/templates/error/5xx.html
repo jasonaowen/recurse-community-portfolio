@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title>Server Error</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<main class="error5xx">
+  <h1
+    class="error5xx-title"
+    data-th-text="|${status} ${error}|"
+  >
+    Server Error
+  </h1>
+  <div class="error5xx-explanation">
+    Oh no! Something went wrong!
+  </div>
+  <div
+    class="error5xx-solutions"
+  >
+    <p>
+      Please
+      <a
+        href="https://github.com/jasonaowen/recurse-community-portfolio/issues/new"
+        data-th-href="|https://github.com/jasonaowen/recurse-community-portfolio/issues/new?body=I+encountered+a+${status}+${error}+accessing+`${path}`+at+${#dates.formatISO(timestamp)}.|"
+      >
+        file an issue</a>,
+      and be sure to include the path
+      (<span data-th-text="${path}">path</span>)
+      and the current time
+      (<span
+        data-th-text="${#dates.formatISO(timestamp)}"
+      >timestamp</span>)
+      so that the error can be associated with the server logs.
+    </p>
+  </div>
+</main>
+</body>
+</html>
