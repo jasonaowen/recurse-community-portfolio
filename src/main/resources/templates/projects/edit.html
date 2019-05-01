@@ -13,13 +13,17 @@
   >
     <section class="project-input">
       <section class="project-input-name">
-        <label class="project-input-name-label">
+        <label
+          class="project-input-name-label"
+          data-th-class="'project-input-name-label' + (${#arrays.contains(errors, 'name')}? ' input-error' : '')"
+        >
           Project Name
           <input
             class="project-input-name-input"
             type="text"
             name="name"
             placeholder="My Awesome Project"
+            required
             data-th-value="*{name}"
           />
         </label>

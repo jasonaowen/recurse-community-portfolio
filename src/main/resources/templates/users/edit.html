@@ -14,12 +14,15 @@
     <section class="user-details">
       <section class="user-view">
         <h2 class="user-section-title">Internal</h2>
-        <label>
+        <label
+          data-th-class="${#arrays.contains(errors, 'internalName')}? 'input-error'"
+        >
           My name (internal):
           <input
             class="user-input-name"
             type="text"
             name="internalName"
+            required
             data-th-value="*{internalName}"
           />
         </label>
@@ -55,12 +58,15 @@ mollit anim id est laborum.
       </section>
       <section class="user-view">
         <h2 class="user-section-title">Public</h2>
-        <label>
+        <label
+          data-th-class="${#arrays.contains(errors, 'publicName')}? 'input-error'"
+        >
           My name (public):
           <input
             class="user-input-name"
             type="text"
             name="publicName"
+            required
             data-th-value="*{publicName}"
           />
         </label>
