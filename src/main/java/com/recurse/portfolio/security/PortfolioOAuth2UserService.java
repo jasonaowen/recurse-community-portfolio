@@ -43,7 +43,7 @@ public class PortfolioOAuth2UserService
             .internalName(profile.getName())
             .publicName(profile.getName())
             .internalImageUrl(profile.getImageUrl())
-            .publicImageUrl(null)
+            .publicImageUrl("/user-placeholder.png")
             .internalBio("")
             .publicBio("")
             .build()
