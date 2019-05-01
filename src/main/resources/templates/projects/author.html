@@ -91,9 +91,10 @@
     </section>
   </section>
   <section class="project-settings">
-    <div>
-      Visibility:
-      <span data-th-text="${project.visibility}">visibility</span>
+    <div
+      data-th-replace="~{visibility :: view('Project visibility', ${project.visibility})}"
+    >
+      Project visibility fragment
     </div>
     <div>
       <a

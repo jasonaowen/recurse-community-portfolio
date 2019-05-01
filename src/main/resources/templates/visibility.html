@@ -52,5 +52,19 @@
     </li>
   </ul>
 </div>
+<div
+  data-th-fragment="view(title, currentVisibility)"
+>
+  <span data-th-text="${title}">Visibility</span>:
+  <span
+    data-th-if="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
+  >only you can view</span>
+  <span
+    data-th-if="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
+  >other logged-in users can view</span>
+  <span
+    data-th-if="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
+  >anyone can view</span>
+</div>
 </body>
 </html>
