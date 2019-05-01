@@ -13,6 +13,7 @@ have helped make this better.
 
 Alphabetically by first name:
 
+- [Alan Chu](https://github.com/thechutrain)
 - [Byung Joo Shin](https://github.com/byshiny)
 - [Jason Owen](https://jasonaowen.net/)
 - [Jeff Ross](https://github.com/jeffro94)
