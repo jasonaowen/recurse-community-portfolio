@@ -105,19 +105,11 @@ pretium sit amet pulvinar non, mattis eu metus.
       </section>
     </section>
     <section class="user-settings">
-      <label>
-        Profile visibility:
-        <select name="profileVisibility">
-          <option
-            data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
-            data-th-value="${v}"
-            data-th-selected="*{profileVisibility} == ${v}"
-            data-th-text="${v}"
-          >
-            visibility
-          </option>
-        </select>
-      </label>
+      <div
+        data-th-replace="~{visibility :: settings('Profile visibility', *{profileVisibility}, 'profileVisibility')}"
+      >
+        Profile visiblity fragment
+      </div>
       <div>
         <input type="submit"/>
       </div>

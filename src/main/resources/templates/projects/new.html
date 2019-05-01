@@ -130,18 +130,10 @@ at egestas.
         </section>
       </section>
       <section class="project-settings">
-        <div>
-          Visibility:
-          <select name="visibility">
-            <option
-              data-th-each="v : ${T(com.recurse.portfolio.security.Visibility).values()}"
-              data-th-value="${v}"
-              data-th-selected="*{visibility} == ${v}"
-              data-th-text="${v}"
-            >
-              visibility
-            </option>
-          </select>
+        <div
+          data-th-replace="~{visibility :: settings('Project visibility', *{visibility}, 'visibility')}"
+        >
+          Project visiblity fragment
         </div>
         <div>
           <input type="submit"/>

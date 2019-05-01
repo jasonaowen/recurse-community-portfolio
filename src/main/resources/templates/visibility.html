@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Visibility Fragments</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<div
+  class="settings-visibility"
+  data-th-fragment="settings(title, currentVisibility, fieldName)"
+>
+  <span data-th-text="${title}">Visibility</span>:
+  <ul class="settings-visibility-list">
+    <li>
+      <label>
+        <input
+          type="radio"
+          name="visibility"
+          required
+          value="${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
+          data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
+          data-th-name="${fieldName}"
+        />
+        Private - only you can view
+      </label>
+    </li>
+    <li>
+      <label>
+        <input
+          type="radio"
+          name="visibility"
+          required
+          value="${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
+          data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
+          data-th-name="${fieldName}"
+        />
+        Internal - other logged-in users can view
+      </label>
+    </li>
+    <li>
+      <label>
+        <input
+          type="radio"
+          name="visibility"
+          required
+          value="${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
+          data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
+          data-th-name="${fieldName}"
+        />
+        Public - anyone can view
+      </label>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
