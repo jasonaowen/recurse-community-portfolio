@@ -8,57 +8,63 @@
 </head>
 <body>
 <main class="user">
-  <section class="user-view">
-    <h2 class="user-section-title">Internal</h2>
-    <img
-      class="user-image"
-      src="../../static/user-placeholder.png"
-      data-th-src="${user.internalImageUrl}"
-    />
-    <div class="user-name">
-      <span data-th-text="${user.internalName}">Internal Name</span>
-    </div>
-    <div class="user-bio">
-      Bio:
-      <div data-th-utext="${user.internalBio}">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+  <section class="user-details">
+    <section class="user-view">
+      <h2 class="user-section-title">Internal</h2>
+      <img
+        class="user-image"
+        src="../../static/user-placeholder.png"
+        data-th-src="${user.internalImageUrl}"
+      />
+      <div class="user-name">
+        <span data-th-text="${user.internalName}">Internal Name</span>
       </div>
-    </div>
-  </section>
-  <section class="user-view">
-    <h2 class="user-section-title">Public</h2>
-    <img
-      class="user-image"
-      src="../../static/user-placeholder.png"
-      data-th-src="${user.publicImageUrl}"
-    />
-    <div class="user-name">
-      <span data-th-text="${user.publicName}">Public Name</span>
-    </div>
-    <div class="user-bio">
-      Bio:
-      <div data-th-utext="${user.publicBio}">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat
-        lobortis arcu vel feugiat. Nullam sagittis commodo turpis nec pretium.
-        Nulla bibendum ligula posuere malesuada posuere. Curabitur ullamcorper
-        sem ut lacus lacinia condimentum. Fusce quis tortor malesuada urna
-        posuere lacinia. Cras volutpat, augue ac semper ullamcorper, arcu metus
-        dapibus quam, ut dictum metus lacus vitae nibh. Pellentesque vitae diam
-        ut lacus efficitur mollis a id nisl. Phasellus ullamcorper ultricies
-        dolor. Maecenas condimentum magna sit amet venenatis sodales.
-        Pellentesque in pulvinar orci. Nulla facilisi. Vivamus justo lorem,
-        pretium sit amet pulvinar non, mattis eu metus.
+      <div class="user-bio">
+        Bio:
+        <div data-th-utext="${user.internalBio}">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in voluptate velit
+          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+          occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.
+        </div>
       </div>
-    </div>
+    </section>
+    <section class="user-view">
+      <h2 class="user-section-title">Public</h2>
+      <img
+        class="user-image"
+        src="../../static/user-placeholder.png"
+        data-th-src="${user.publicImageUrl}"
+      />
+      <div class="user-name">
+        <span data-th-text="${user.publicName}">Public Name</span>
+      </div>
+      <div class="user-bio">
+        Bio:
+        <div data-th-utext="${user.publicBio}">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Donec feugiat lobortis arcu vel feugiat. Nullam sagittis
+          commodo turpis nec pretium. Nulla bibendum ligula posuere
+          malesuada posuere. Curabitur ullamcorper sem ut lacus
+          lacinia condimentum. Fusce quis tortor malesuada urna
+          posuere lacinia. Cras volutpat, augue ac semper
+          ullamcorper, arcu metus dapibus quam, ut dictum metus lacus
+          vitae nibh. Pellentesque vitae diam ut lacus efficitur
+          mollis a id nisl. Phasellus ullamcorper ultricies dolor.
+          Maecenas condimentum magna sit amet venenatis sodales.
+          Pellentesque in pulvinar orci. Nulla facilisi. Vivamus
+          justo lorem, pretium sit amet pulvinar non, mattis eu
+          metus.
+        </div>
+      </div>
+    </section>
   </section>
   <section class="user-settings">
-    <h2 class="user-section-title">Settings</h2>
+    <h2 class="user-settings-title">Settings</h2>
     <div>
       Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
     </div>
@@ -68,6 +74,11 @@
         data-th-href="@{/user/{id}/edit(id=${user.userId})}"
       >Edit</a>
     </div>
+  </section>
+  <section
+    data-th-replace="~{users/projects :: user-projects}"
+  >
+    Project List
   </section>
 </main>
 </body>
