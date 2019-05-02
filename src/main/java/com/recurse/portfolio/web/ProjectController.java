@@ -10,16 +10,15 @@ import com.recurse.portfolio.security.VisibilityPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
@@ -49,13 +48,17 @@ public class ProjectController {
     @Transactional
     public ModelAndView postNewProject(
         @CurrentUser User currentUser,
-        Project postedProject
+        @Valid Project postedProject,
+        BindingResult bindingResult
     ) {
         if (currentUser == null) {
             throw new VisibilityException(Visibility.PRIVATE);
         }
-        List<String> errors = validate(postedProject);
-        if (errors.isEmpty()) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("projects/new")
+                .addObject("authors", Set.of(currentUser))
+                .addObject("project", postedProject);
+        } else {
             Project newProject = new Project();
             updateMutableProjectValues(newProject, postedProject);
             Project savedProject = repository.save(newProject);
@@ -64,11 +67,6 @@ public class ProjectController {
                 currentUser.getUserId()
             );
             return new ModelAndView(new RedirectView("/project/" + savedProject.getProjectId()));
-        } else {
-            return new ModelAndView("projects/new")
-                .addObject("authors", Set.of(currentUser))
-                .addObject("project", postedProject)
-                .addObject("errors", errors);
         }
     }
 
@@ -131,7 +129,8 @@ public class ProjectController {
     public ModelAndView postEditProject(
         @CurrentUser User currentUser,
         @PathVariable(name = "id") Integer projectId,
-        Project postedProject
+        @Valid Project postedProject,
+        BindingResult bindingResult
     ) {
         Project project = repository.findById(projectId)
             .orElseThrow(() -> new NotFoundException("project", projectId));
@@ -140,27 +139,16 @@ public class ProjectController {
             throw new VisibilityException(Visibility.PRIVATE);
         }
 
-        List<String> errors = validate(postedProject);
-        if (errors.isEmpty()) {
+        if (bindingResult.hasErrors()) {
+            postedProject.setProjectId(projectId);
+            return new ModelAndView("projects/edit")
+                .addObject("project", postedProject);
+        } else {
             updateMutableProjectValues(project, postedProject);
             repository.save(project);
 
             return new ModelAndView(new RedirectView("/project/" + projectId));
-        } else {
-            postedProject.setProjectId(projectId);
-            return new ModelAndView("projects/edit")
-                .addObject("project", postedProject)
-                .addObject("errors", errors);
         }
-    }
-
-    private List<String> validate(Project postedProject) {
-        List<String> errors = new ArrayList<>();
-        if (StringUtils.isEmpty(postedProject.getName())) {
-            errors.add("name");
-        }
-        return errors;
-
     }
 
     private void updateMutableProjectValues(

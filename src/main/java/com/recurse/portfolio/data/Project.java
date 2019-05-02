@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +25,8 @@ public class Project {
     @Transient
     Set<User> authors = new HashSet<>();
 
+    @NotNull
+    @Size(min = 1, max = 100)
     String name;
 
     @Column("description_private")

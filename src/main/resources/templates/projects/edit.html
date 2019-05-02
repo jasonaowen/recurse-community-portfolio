@@ -15,7 +15,7 @@
       <section class="project-input-name">
         <label
           class="project-input-name-label"
-          data-th-class="'project-input-name-label' + (${#arrays.contains(errors, 'name')}? ' input-error' : '')"
+          data-th-class="'project-input-name-label' + (${#fields.hasErrors('name')}? ' input-error' : '')"
         >
           Project Name
           <input

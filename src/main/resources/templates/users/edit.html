@@ -15,7 +15,7 @@
       <section class="user-view">
         <h2 class="user-section-title">Internal</h2>
         <label
-          data-th-class="${#arrays.contains(errors, 'internalName')}? 'input-error'"
+          data-th-class="${#fields.hasErrors('internalName')}? 'input-error'"
         >
           My name (internal):
           <input
@@ -59,7 +59,7 @@ mollit anim id est laborum.
       <section class="user-view">
         <h2 class="user-section-title">Public</h2>
         <label
-          data-th-class="${#arrays.contains(errors, 'publicName')}? 'input-error'"
+          data-th-class="${#fields.hasErrors('publicName')}? 'input-error'"
         >
           My name (public):
           <input
