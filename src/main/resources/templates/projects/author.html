@@ -23,14 +23,13 @@
           class="project-author-list-item-link"
           href="../users/self.html"
           data-th-href="@{/user/{id}(id=${author.userId})}"
-          data-th-text="${author.internalName}"
         >
           <img
             class="project-author-list-item-image"
             src="../../static/user-placeholder.png"
             data-th-src="${author.internalImageUrl}"
           />
-          My Self
+          <span data-th-text="${author.internalName}">My Self</span>
         </a>
       </li>
       <li
@@ -42,7 +41,7 @@
             class="project-author-list-item-image"
             src="../../static/user-placeholder.png"
           />
-          Peer Author
+          <span>Peer Author</span>
         </a>
       </li>
     </ul>
