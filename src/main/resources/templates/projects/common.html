@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Project Shared Fragments</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<section class="project-authors" data-th-fragment="authorsList(authors)">
+  By:
+  <ul class="project-authors-list">
+    <li
+      class="project-authors-list-item"
+      data-th-each="author : ${authors}"
+    >
+      <a
+        class="project-author-list-item-link"
+        href="../users/self.html"
+        data-th-href="@{/user/{id}(id=${author.userId})}"
+      >
+        <img
+          class="project-author-list-item-image"
+          src="../../static/user-placeholder.png"
+          data-th-src="${author.imageUrl}"
+        />
+        <span data-th-text="${author.name}">My Self</span>
+      </a>
+    </li>
+    <li
+      class="project-authors-list-item"
+      data-th-remove="all"
+    >
+      <a class="project-author-list-item-link" href="../users/peer.html">
+        <img
+          class="project-author-list-item-image"
+          src="../../static/user-placeholder.png"
+        />
+        <span>Peer Author</span>
+      </a>
+    </li>
+    <li
+      class="project-authors-list-item"
+      data-th-remove="all"
+    >
+      <a class="project-author-list-item-link" href="../users/public.html">
+        <img
+          class="project-author-list-item-image"
+          src="../../static/user-placeholder.png"
+        />
+        <span>Public Author</span>
+      </a>
+    </li>
+  </ul>
+</section>
+</body>
+</html>

@@ -12,39 +12,8 @@
   >
     Project Name
   </h1>
-  <section class="project-authors">
-    By:
-    <ul class="project-authors-list">
-      <li
-        class="project-authors-list-item"
-        data-th-each="author : ${authors}"
-      >
-        <a
-          class="project-author-list-item-link"
-          href="../users/self.html"
-          data-th-href="@{/user/{id}(id=${author.userId})}"
-        >
-          <img
-            class="project-author-list-item-image"
-            src="../../static/user-placeholder.png"
-            data-th-src="${author.internalImageUrl}"
-          />
-          <span data-th-text="${author.internalName}">My Self</span>
-        </a>
-      </li>
-      <li
-        class="project-authors-list-item"
-        data-th-remove="all"
-      >
-        <a class="project-author-list-item-link" href="../users/peer.html">
-          <img
-            class="project-author-list-item-image"
-            src="../../static/user-placeholder.png"
-          />
-          <span>Peer Author</span>
-        </a>
-      </li>
-    </ul>
+  <section data-th-replace="~{projects/common :: authorsList(${authors})}">
+    <a href="common.html">Authors list fragment</a>
   </section>
   <section class="project-descriptions">
     <section class="project-description">
