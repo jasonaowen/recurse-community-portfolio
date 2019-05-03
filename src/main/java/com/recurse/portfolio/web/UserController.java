@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -106,7 +105,6 @@ public class UserController {
         );
 
         mv.addObject("user", requestedUser);
-        mv.addObject("errors", Collections.emptyList());
         return mv;
     }
 

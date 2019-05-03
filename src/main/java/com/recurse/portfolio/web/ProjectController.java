@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Set;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
@@ -40,7 +39,6 @@ public class ProjectController {
         project.setVisibility(Visibility.PRIVATE);
         mv.addObject("authors", Set.of(currentUser));
         mv.addObject("project", project);
-        mv.addObject("errors", Collections.emptyList());
         return mv;
     }
 
@@ -121,7 +119,6 @@ public class ProjectController {
         ModelAndView mv = new ModelAndView("projects/edit");
         mv.addObject("project", project);
         mv.addObject("authors", authors);
-        mv.addObject("errors", Collections.emptyList());
         return mv;
     }
 
