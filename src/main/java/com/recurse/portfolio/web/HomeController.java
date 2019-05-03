@@ -1,6 +1,5 @@
 package com.recurse.portfolio.web;
 
-import com.recurse.portfolio.data.Project;
 import com.recurse.portfolio.data.ProjectAndAuthor;
 import com.recurse.portfolio.data.ProjectRepository;
 import com.recurse.portfolio.data.User;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -22,19 +23,23 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView index(@CurrentUser User currentUser) {
         return new ModelAndView("home")
-            .addObject("projects", projectsForUser(currentUser));
+            .addObject("projects", displayProjectsForUser(currentUser));
     }
 
-    private Collection<Project> projectsForUser(User currentUser) {
+    private Collection<DisplayProject> displayProjectsForUser(User currentUser) {
+        return ProjectAndAuthor.collect(projectsForUser(currentUser)).stream()
+            .map(p -> DisplayProject.fromProjectForUser(p, currentUser))
+            .collect(Collectors.toUnmodifiableList());
+    }
+
+    private List<ProjectAndAuthor> projectsForUser(User currentUser) {
         if (currentUser == null) {
-            var projectAuthors = projectRepository.getPublicProjects(LIMIT);
-            return ProjectAndAuthor.collect(projectAuthors);
+            return projectRepository.getPublicProjects(LIMIT);
         } else {
-            var projectAuthors = projectRepository.getProjectsVisibleToUser(
+            return projectRepository.getProjectsVisibleToUser(
                 currentUser.getUserId(),
                 LIMIT
             );
-            return ProjectAndAuthor.collect(projectAuthors);
         }
     }
 }
