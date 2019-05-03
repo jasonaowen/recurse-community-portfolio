@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Set;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
@@ -35,13 +34,11 @@ public class ProjectController {
         if (currentUser == null) {
             throw new VisibilityException(Visibility.PRIVATE);
         }
-        var mv = new ModelAndView("projects/new");
         var project = new Project();
         project.setVisibility(Visibility.PRIVATE);
-        mv.addObject("authors", Set.of(currentUser));
-        mv.addObject("project", project);
-        mv.addObject("errors", Collections.emptyList());
-        return mv;
+        return new ModelAndView("projects/new")
+            .addObject("authors", Set.of(currentUser))
+            .addObject("project", project);
     }
 
     @PostMapping("/project/")
@@ -66,7 +63,9 @@ public class ProjectController {
                 savedProject.getProjectId(),
                 currentUser.getUserId()
             );
-            return new ModelAndView(new RedirectView("/project/" + savedProject.getProjectId()));
+            return new ModelAndView(new RedirectView(
+                "/project/" + savedProject.getProjectId()
+            ));
         }
     }
 
@@ -86,10 +85,6 @@ public class ProjectController {
             "projects/public"
         );
 
-        ModelAndView mv = new ModelAndView(
-            policy.evaluate(authors, currentUser)
-        );
-
         project.setPublicDescription(renderMarkdownToHtml(
             project.getPublicDescription()
         ));
@@ -100,9 +95,9 @@ public class ProjectController {
             project.getPrivateDescription()
         ));
 
-        mv.addObject("project", project);
-        mv.addObject("authors", authors);
-        return mv;
+        return new ModelAndView(policy.evaluate(authors, currentUser))
+            .addObject("project", project)
+            .addObject("authors", authors);
     }
 
     @GetMapping("/project/{projectId}/edit")
@@ -118,11 +113,9 @@ public class ProjectController {
             throw new VisibilityException(Visibility.PRIVATE);
         }
 
-        ModelAndView mv = new ModelAndView("projects/edit");
-        mv.addObject("project", project);
-        mv.addObject("authors", authors);
-        mv.addObject("errors", Collections.emptyList());
-        return mv;
+        return new ModelAndView("projects/edit")
+            .addObject("project", project)
+            .addObject("authors", authors);
     }
 
     @PostMapping("/project/{id}/edit")

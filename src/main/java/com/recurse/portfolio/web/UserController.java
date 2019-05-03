@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -75,15 +74,11 @@ public class UserController {
         String viewName,
         List<String> visibilities
     ) {
-        return (authorId) -> {
-            ModelAndView mv = new ModelAndView(viewName);
-            List<Project> projects = repository.findProjectsByAuthor(
+        return (authorId) -> new ModelAndView(viewName)
+            .addObject("projects", repository.findProjectsByAuthor(
                 authorId,
                 visibilities
-            );
-            mv.addObject("projects", projects);
-            return mv;
-        };
+            ));
     }
 
     @GetMapping("/user/{userId}/edit")
@@ -101,13 +96,8 @@ public class UserController {
             null
         );
 
-        ModelAndView mv = new ModelAndView(
-            policy.evaluate(requestedUser, currentUser)
-        );
-
-        mv.addObject("user", requestedUser);
-        mv.addObject("errors", Collections.emptyList());
-        return mv;
+        return new ModelAndView(policy.evaluate(requestedUser, currentUser))
+            .addObject("user", requestedUser);
     }
 
     @PostMapping("/user/{id}/edit")
