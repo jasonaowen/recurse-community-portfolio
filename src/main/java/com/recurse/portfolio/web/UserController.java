@@ -10,12 +10,15 @@ import com.recurse.portfolio.security.VisibilityPolicy;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -103,14 +106,16 @@ public class UserController {
         );
 
         mv.addObject("user", requestedUser);
+        mv.addObject("errors", Collections.emptyList());
         return mv;
     }
 
     @PostMapping("/user/{id}/edit")
-    public RedirectView postEditMyProfile(
+    public ModelAndView postEditMyProfile(
         @CurrentUser User currentUser,
         @PathVariable(name = "id") Integer userId,
-        User postedUser
+        @Valid User postedUser,
+        BindingResult bindingResult
     ) {
         User requestedUser = repository.findById(userId)
             .orElseThrow(() -> new NotFoundException("user", userId));
@@ -118,10 +123,16 @@ public class UserController {
             throw new VisibilityException(Visibility.PRIVATE);
         }
 
-        updateMutableCurrentUserValues(currentUser, postedUser);
-        repository.save(currentUser);
+        if (bindingResult.hasErrors()) {
+            postedUser.setUserId(currentUser.getUserId());
+            return new ModelAndView("users/edit")
+                .addObject("user", postedUser);
+        } else {
+            updateMutableCurrentUserValues(currentUser, postedUser);
+            repository.save(currentUser);
 
-        return new RedirectView("/user/" + userId);
+            return new ModelAndView(new RedirectView("/user/" + userId));
+        }
     }
 
     private void updateMutableCurrentUserValues(

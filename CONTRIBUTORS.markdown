@@ -20,3 +20,4 @@ Alphabetically by first name:
 - [Ian Ross](https://github.com/ihross)
 - [Sebastian Morr](https://github.com/blinry)
 - [Sumana Harihareswara](https://github.com/brainwane)
+- [Travis Horton](https://www.travish.com/)
