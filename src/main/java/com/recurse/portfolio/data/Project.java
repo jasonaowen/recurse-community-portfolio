@@ -25,6 +25,9 @@ public class Project {
     @Transient
     Set<User> authors = new HashSet<>();
 
+    @Transient
+    Set<Tag> tags = new HashSet<>();
+
     @NotNull
     @Size(min = 1, max = 100)
     String name;

@@ -24,6 +24,25 @@ public interface ProjectRepository
         "on conflict(author_id, project_id) do nothing")
     void addProjectAuthor(int projectId, int authorId);
 
+    @Query("select t.* " +
+        "from project_tags pt" +
+        "  inner join tags t" +
+        "    on pt.tag_id = t.tag_id " +
+        "where pt.project_id = :projectId")
+    Set<Tag> findProjectTags(int projectId);
+
+    @Modifying
+    @Query("insert into project_tags(project_id, tag_id) " +
+        "values (:projectId, :tagId) " +
+        "on conflict(project_id, tag_id) do nothing")
+    void addProjectTag(int projectId, int tagId);
+
+    @Modifying
+    @Query("delete from project_tags " +
+        "where project_id = :projectId" +
+        "  and tag_id = :tagId")
+    void removeProjectTag(int projectId, int tagId);
+
     @Query("select" +
         "  p.project_id as project_project_id," +
         "  p.visibility as project_visibility," +

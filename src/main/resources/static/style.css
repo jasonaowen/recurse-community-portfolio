@@ -169,3 +169,23 @@ footer {
 .input-error {
   color: red;
 }
+
+.project-tags-edit-title,
+.project-tags-title {
+  display: inline;
+}
+
+.project-tags-edit-list,
+.project-tags-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.project-tags-edit-list-item,
+.project-tags-list-item {
+  background-color: #eee;
+  border-radius: .5em;
+  display: inline;
+  margin: .25em;
+  padding: .5em;
+}
