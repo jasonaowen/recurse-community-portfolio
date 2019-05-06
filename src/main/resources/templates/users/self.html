@@ -65,8 +65,10 @@
   </section>
   <section class="user-settings">
     <h2 class="user-settings-title">Settings</h2>
-    <div>
-      Profile visibility: <span data-th-text="${user.profileVisibility}">visibility</span>
+    <div
+      data-th-replace="~{visibility :: view('Profile visibility', ${user.profileVisibility})}"
+    >
+      Profile visibility fragment
     </div>
     <div>
       <a
