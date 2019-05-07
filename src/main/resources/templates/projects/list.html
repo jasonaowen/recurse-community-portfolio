@@ -7,7 +7,10 @@
 <main>
   <h2>Project List</h2>
   <section>
-    <ul class="global-project-list">
+    <ul
+      class="global-project-list"
+      data-th-fragment="list(projects)"
+    >
       <li
         class="global-project-list-item"
         data-th-each="project : ${projects}"
