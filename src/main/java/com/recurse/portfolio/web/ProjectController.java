@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
 
@@ -37,7 +38,8 @@ public class ProjectController {
         var project = new Project();
         project.setVisibility(Visibility.PRIVATE);
         return new ModelAndView("projects/new")
-            .addObject("authors", Set.of(currentUser))
+            .addObject("authors", Set.of(
+                DisplayAuthor.fromUserForUser(currentUser, currentUser)))
             .addObject("project", project);
     }
 
@@ -95,9 +97,12 @@ public class ProjectController {
             project.getPrivateDescription()
         ));
 
+        Set<DisplayAuthor> displayAuthors = authors.stream()
+            .map(a -> DisplayAuthor.fromUserForUser(a, currentUser))
+            .collect(Collectors.toUnmodifiableSet());
         return new ModelAndView(policy.evaluate(authors, currentUser))
             .addObject("project", project)
-            .addObject("authors", authors);
+            .addObject("authors", displayAuthors);
     }
 
     @GetMapping("/project/{projectId}/edit")
@@ -113,9 +118,12 @@ public class ProjectController {
             throw new VisibilityException(Visibility.PRIVATE);
         }
 
+        Set<DisplayAuthor> displayAuthors = authors.stream()
+            .map(a -> DisplayAuthor.fromUserForUser(a, currentUser))
+            .collect(Collectors.toUnmodifiableSet());
         return new ModelAndView("projects/edit")
             .addObject("project", project)
-            .addObject("authors", authors);
+            .addObject("authors", displayAuthors);
     }
 
     @PostMapping("/project/{id}/edit")
