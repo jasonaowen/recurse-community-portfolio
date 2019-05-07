@@ -181,6 +181,7 @@ footer {
   flex-wrap: wrap;
 }
 
+.tag-title-name,
 .project-tags-edit-list-item,
 .project-tags-list-item {
   background-color: #eee;

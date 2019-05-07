@@ -46,6 +46,44 @@ public class DisplayProjectRepository {
         }
     }
 
+    public Page<DisplayProject> displayProjectsWithTagForUser(
+        Tag tag,
+        User user,
+        Pageable pageable
+    ) {
+        if (user == null) {
+            return new PageImpl<>(
+                toDisplayProject(
+                    projectRepository.getPublicProjectsWithTag(
+                        tag.getTagId(),
+                        pageable.getPageSize(),
+                        (int) pageable.getOffset()
+                    ),
+                    user
+                ),
+                pageable,
+                projectRepository.getPublicProjectsWithTagCount(tag.getTagId())
+            );
+        } else {
+            return new PageImpl<>(
+                toDisplayProject(
+                    projectRepository.getProjectsVisibleToUserWithTag(
+                        user.getUserId(),
+                        tag.getTagId(),
+                        pageable.getPageSize(),
+                        (int) pageable.getOffset()
+                    ),
+                    user
+                ),
+                pageable,
+                projectRepository.getProjectsVisibleToUserWithTagCount(
+                    user.getUserId(),
+                    tag.getTagId()
+                )
+            );
+        }
+    }
+
     private List<DisplayProject> toDisplayProject(
         List<ProjectAuthorTag> input,
         User user

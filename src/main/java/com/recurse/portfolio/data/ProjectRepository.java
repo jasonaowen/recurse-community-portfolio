@@ -115,4 +115,58 @@ public interface ProjectRepository
         ") " +
         "select count(*) from visible_projects")
     int getProjectsVisibleToUserCount(int userId);
+
+    @Query("with visible_projects as (" +
+        "  select project_id" +
+        "  from project_tags" +
+        "  where tag_id = :tagId" +
+        "  order by project_id desc" +
+        "  limit :limit" +
+        "  offset :offset" +
+        ") " + SELECT)
+    List<ProjectAuthorTag> getPublicProjectsWithTag(
+        int tagId,
+        int limit,
+        int offset
+    );
+
+    @Query("select count(*) from project_tags where tag_id = :tagId")
+    int getPublicProjectsWithTagCount(int tagId);
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "    inner join project_tags pt" +
+        "      on p.project_id = pt.project_id" +
+        "  where (p.visibility in ('PUBLIC', 'INTERNAL')" +
+        "      OR (pa.author_id = :userId))" +
+        "    AND pt.tag_id = :tagId" +
+        "  group by 1" +
+        "  order by p.project_id desc" +
+        "  limit :limit" +
+        "  offset :offset" +
+        ") " + SELECT)
+    List<ProjectAuthorTag> getProjectsVisibleToUserWithTag(
+        int userId,
+        int tagId,
+        int limit,
+        int offset
+    );
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "    inner join project_tags pt" +
+        "      on p.project_id = pt.project_id" +
+        "  where (p.visibility in ('PUBLIC', 'INTERNAL')" +
+        "      OR (pa.author_id = :userId))" +
+        "    AND pt.tag_id = :tagId" +
+        "  group by 1" +
+        ") " +
+        "select count(*) from visible_projects")
+    int getProjectsVisibleToUserWithTagCount(int userId, int tagId);
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title data-th-text="|${tag.name} Projects - Portfolio|">Tag Projects</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<main class="tag">
+  <h1>
+    Projects tagged
+    <span
+      class="tag-title-name"
+      data-th-text="${tag.name}"
+    >
+      Tag
+    </span>
+  </h1>
+  <div data-th-replace="~{projects/list :: list(${projects})}">
+    <a href="projects/list.html">Project list fragment</a>
+  </div>
+  <div
+    data-th-replace="~{pagination :: pagination(
+      @{/tag/{id}(id=${tag.tagId})},
+      ${page},
+      ${projects.getTotalPages()}
+    )}"
+  >
+    <a href="../pagination.html">Pagination fragment</a>
+  </div>
+</main>
+</body>
+</html>
