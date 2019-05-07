@@ -189,3 +189,14 @@ footer {
   margin: .25em;
   padding: .5em;
 }
+
+.pagination {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pagination-previous,
+.pagination-next {
+  text-align: center;
+  width: 7em;
+}

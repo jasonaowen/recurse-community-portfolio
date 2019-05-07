@@ -73,8 +73,12 @@ public interface ProjectRepository
         "  where visibility = 'PUBLIC'" +
         "  order by project_id desc" +
         "  limit :limit" +
+        "  offset :offset" +
         ") " + SELECT)
-    List<ProjectAndAuthor> getPublicProjects(int limit);
+    List<ProjectAndAuthor> getPublicProjects(int limit, int offset);
+
+    @Query("select count(*) from projects where visibility = 'PUBLIC'")
+    int getPublicProjectsCount();
 
     @Query("with visible_projects as (" +
         "  select p.project_id" +
@@ -86,6 +90,23 @@ public interface ProjectRepository
         "  group by 1" +
         "  order by p.project_id desc " +
         "  limit :limit" +
+        "  offset :offset" +
         ") " + SELECT)
-    List<ProjectAndAuthor> getProjectsVisibleToUser(int userId, int limit);
+    List<ProjectAndAuthor> getProjectsVisibleToUser(
+        int userId,
+        int limit,
+        int offset
+    );
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "  where p.visibility in ('PUBLIC', 'INTERNAL')" +
+        "    OR (pa.author_id = :userId)" +
+        "  group by 1" +
+        ") " +
+        "select count(*) from visible_projects")
+    int getProjectsVisibleToUserCount(int userId);
 }

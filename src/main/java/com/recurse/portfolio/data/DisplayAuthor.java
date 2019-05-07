@@ -1,6 +1,5 @@
-package com.recurse.portfolio.web;
+package com.recurse.portfolio.data;
 
-import com.recurse.portfolio.data.User;
 import lombok.NonNull;
 import lombok.Value;
 

@@ -1,7 +1,5 @@
-package com.recurse.portfolio.web;
+package com.recurse.portfolio.data;
 
-import com.recurse.portfolio.data.Project;
-import com.recurse.portfolio.data.User;
 import lombok.Value;
 
 import java.util.Set;

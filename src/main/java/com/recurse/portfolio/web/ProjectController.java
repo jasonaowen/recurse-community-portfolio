@@ -1,5 +1,6 @@
 package com.recurse.portfolio.web;
 
+import com.recurse.portfolio.data.DisplayAuthor;
 import com.recurse.portfolio.data.Project;
 import com.recurse.portfolio.data.ProjectRepository;
 import com.recurse.portfolio.data.Tag;

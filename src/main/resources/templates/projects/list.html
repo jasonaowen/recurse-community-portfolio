@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title>Recurse Center Community Portfolio</title>
+</head>
+<body>
+<main>
+  <h2>Project List</h2>
+  <section>
+    <ul class="global-project-list">
+      <li
+        class="global-project-list-item"
+        data-th-each="project : ${projects}"
+      >
+        <a
+          href="projects/public.html"
+          data-th-href="@{/project/{id}(id=${project.projectId})}"
+          data-th-text="${project.name}"
+        >Project Name</a>,
+        by
+        <span
+          class="global-project-list-item-author"
+          data-th-each="author : ${project.authors}"
+        >
+          <a
+            href="users/public.html"
+            data-th-href="@{/user/{id}(id=${author.userId})}"
+            data-th-text="${author.name}"
+          >Author Name</a><span
+            data-th-if="not ${authorStat.last}"
+          >, </span>
+        </span>
+      </li>
+      <li
+        class="global-project-list-item"
+        data-th-remove="all"
+      >
+        <a href="../projects/public.html">Second Project</a>,
+        by <a href="users/public.html">Second Author</a>
+      </li>
+    </ul>
+  </section>
+  <section class="pagination">
+    <div class="pagination-previous">
+      <a
+        href="#"
+        data-th-href="@{/projects/(page=${page.previousOrFirst().pageNumber}, size=${page.pageSize})}"
+        data-th-if="${page.hasPrevious()}"
+      >
+        &#x2190; Previous
+      </a>
+    </div>
+    <div class="pagination-next">
+      <a
+        href="#"
+        data-th-if="${projects.getTotalPages()} gt (${page.pageNumber} + 1)"
+        data-th-href="@{/projects/(page=${page.next().pageNumber}, size=${page.pageSize})}"
+      >
+        Next &#x2192;
+      </a>
+    </div>
+  </section>
+</main>
+</body>
+</html>
