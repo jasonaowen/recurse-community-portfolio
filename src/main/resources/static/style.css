@@ -214,3 +214,9 @@ footer {
   margin: .1em .25em;
   border-radius: .25em;
 }
+
+.global-project-list-item-tag-list-item-link,
+.project-tags-list-item-link {
+  color: black;
+  text-decoration: none;
+}

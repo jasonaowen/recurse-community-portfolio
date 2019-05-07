@@ -98,9 +98,15 @@
     <li
       class="project-tags-list-item"
       data-th-each="tag : ${tags}"
-      data-th-text="${tag.name}"
     >
-      Example Tag
+      <a
+        class="project-tags-list-item-link"
+        href="../tags/tag.html"
+        data-th-href="@{/tag/{id}(id=${tag.tagId})}"
+        data-th-text="${tag.name}"
+      >
+        Example Tag
+      </a>
     </li>
     <li class="project-tags-list-item">Second Tag</li>
     <li class="project-tags-list-item">Third Tag</li>
