@@ -58,7 +58,9 @@ public interface ProjectRepository
         "  a.image_url_internal as author_image_url_internal," +
         "  a.image_url_public as author_image_url_public," +
         "  a.bio_internal as author_bio_internal," +
-        "  a.bio_public as author_bio_public " +
+        "  a.bio_public as author_bio_public," +
+        "  t.tag_id as tag_tag_id," +
+        "  t.name as tag_name " +
         "from visible_projects v" +
         "  inner join projects p" +
         "    on v.project_id = p.project_id" +
@@ -66,6 +68,10 @@ public interface ProjectRepository
         "    on p.project_id = pa.project_id" +
         "  inner join users a" +
         "    on pa.author_id = a.user_id " +
+        "  left outer join project_tags pt" +
+        "    on p.project_id = pt.project_id" +
+        "  left outer join tags t" +
+        "    on pt.tag_id = t.tag_id " +
         "order by p.project_id desc";
 
     @Query("with visible_projects as (" +
@@ -75,7 +81,7 @@ public interface ProjectRepository
         "  limit :limit" +
         "  offset :offset" +
         ") " + SELECT)
-    List<ProjectAndAuthor> getPublicProjects(int limit, int offset);
+    List<ProjectAuthorTag> getPublicProjects(int limit, int offset);
 
     @Query("select count(*) from projects where visibility = 'PUBLIC'")
     int getPublicProjectsCount();
@@ -92,7 +98,7 @@ public interface ProjectRepository
         "  limit :limit" +
         "  offset :offset" +
         ") " + SELECT)
-    List<ProjectAndAuthor> getProjectsVisibleToUser(
+    List<ProjectAuthorTag> getProjectsVisibleToUser(
         int userId,
         int limit,
         int offset

@@ -10,6 +10,7 @@ public class DisplayProject {
     int projectId;
     String name;
     Set<DisplayAuthor> authors;
+    Set<Tag> tags;
 
     public static DisplayProject fromProjectForUser(
         Project project,
@@ -20,7 +21,8 @@ public class DisplayProject {
             project.getName(),
             project.getAuthors().stream()
                 .map(u -> DisplayAuthor.fromUserForUser(u, currentUser))
-                .collect(Collectors.toUnmodifiableSet())
+                .collect(Collectors.toUnmodifiableSet()),
+            project.getTags()
         );
     }
 }

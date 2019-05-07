@@ -29,6 +29,15 @@
         data-th-if="not ${authorStat.last}"
       >, </span>
       </span>
+      <ul class="global-project-list-item-tag-list">
+        <li
+          class="global-project-list-item-tag-list-item"
+          data-th-each="tag : ${project.tags}"
+          data-th-text="${tag.name}"
+        >
+          Tag Name
+        </li>
+      </ul>
     </li>
     <li
       class="global-project-list-item"

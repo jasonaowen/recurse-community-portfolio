@@ -200,3 +200,16 @@ footer {
   text-align: center;
   width: 7em;
 }
+
+.global-project-list-item-tag-list {
+  display: flex;
+  font-size: smaller;
+}
+
+.global-project-list-item-tag-list-item {
+  display: inline;
+  padding: .2em;
+  background-color: #eee;
+  margin: .1em .25em;
+  border-radius: .25em;
+}

@@ -47,10 +47,10 @@ public class DisplayProjectRepository {
     }
 
     private List<DisplayProject> toDisplayProject(
-        List<ProjectAndAuthor> input,
+        List<ProjectAuthorTag> input,
         User user
     ) {
-        return ProjectAndAuthor.collect(input)
+        return ProjectAuthorTag.collect(input)
             .stream()
             .map(p -> DisplayProject.fromProjectForUser(p, user))
             .collect(Collectors.toUnmodifiableList());
