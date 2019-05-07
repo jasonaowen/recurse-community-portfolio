@@ -52,26 +52,9 @@
       </li>
     </ul>
   </section>
-  <section class="pagination">
-    <div class="pagination-previous">
-      <a
-        href="#"
-        data-th-href="@{/projects/(page=${page.previousOrFirst().pageNumber}, size=${page.pageSize})}"
-        data-th-if="${page.hasPrevious()}"
-      >
-        &#x2190; Previous
-      </a>
-    </div>
-    <div class="pagination-next">
-      <a
-        href="#"
-        data-th-if="${projects.getTotalPages()} gt (${page.pageNumber} + 1)"
-        data-th-href="@{/projects/(page=${page.next().pageNumber}, size=${page.pageSize})}"
-      >
-        Next &#x2192;
-      </a>
-    </div>
-  </section>
+  <div data-th-replace="~{pagination :: pagination('/projects/', ${page}, ${projects.getTotalPages()})}">
+    <a href="../pagination.html">Pagination fragment</a>
+  </div>
 </main>
 </body>
 </html>
