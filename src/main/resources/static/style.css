@@ -149,6 +149,10 @@ footer {
   flex-direction: column;
 }
 
+.project-description-visibility {
+  display: inline;
+}
+
 .project-input-description {
   display: block;
   width: 100%;
