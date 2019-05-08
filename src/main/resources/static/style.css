@@ -128,20 +128,9 @@ footer {
   text-align: center;
 }
 
-.project-descriptions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.project-description-visibility {
-  margin: 0;
-  text-align: center;
-}
-
 .project-description {
-  max-width: 24em;
-  margin: 1em;
+  max-width: 40em;
+  margin: 1em auto;
 }
 
 .project-settings {
@@ -160,10 +149,14 @@ footer {
   flex-direction: column;
 }
 
+.project-description-visibility {
+  display: inline;
+}
+
 .project-input-description {
   display: block;
-  width: 24em;
-  height: 32em;
+  width: 100%;
+  height: 24em;
 }
 
 .input-error {

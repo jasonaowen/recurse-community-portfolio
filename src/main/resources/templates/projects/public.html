@@ -16,7 +16,10 @@
     <a href="common.html">Authors list fragment</a>
   </section>
   <section class="project-descriptions">
-    <section class="project-description">
+    <section
+      class="project-description"
+      data-th-unless="${#strings.isEmpty(project.publicDescription)}"
+    >
       <div data-th-utext="${project.publicDescription}">
         Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
         cubilia Curae; Fusce orci eros, feugiat eu ipsum blandit, suscipit

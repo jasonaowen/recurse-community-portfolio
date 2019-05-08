@@ -33,51 +33,17 @@
       </section>
       <section class="project-descriptions">
         <section class="project-description">
-          <h2 class="project-description-visibility">Private</h2>
-          <textarea
-            class="project-input-description"
-            name="privateDescription"
-            placeholder="Private project description, visible only to you"
-            data-th-text="*{privateDescription}"
+          <details
+            data-th-open="*{!#strings.isEmpty(publicDescription)}"
           >
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a
-justo et ipsum gravida cursus. Proin aliquet in libero id tempor.
-Pellentesque suscipit placerat egestas. Phasellus facilisis nibh leo,
-quis pretium odio gravida id. Morbi nibh diam, elementum posuere enim
-non, vestibulum accumsan nunc. Curabitur scelerisque pulvinar varius.
-Cras ultrices rutrum tristique.
-          </textarea>
-          <a href="https://commonmark.org/help/">
-            Styling with Markdown is supported.
-          </a>
-        </section>
-        <section class="project-description">
-          <h2 class="project-description-visibility">Internal</h2>
-          <textarea
-            class="project-input-description"
-            name="internalDescription"
-            placeholder="Internal project description, visible to your peers"
-            data-th-text="*{internalDescription}"
-          >
-Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
-euismod a urna ut, semper maximus tellus. Phasellus mollis volutpat
-dictum. Suspendisse potenti. Nam eu lectus ac quam mollis dictum sit
-amet finibus diam. Cras eget mauris semper, interdum nulla eu, bibendum
-orci. Quisque ut euismod elit. Quisque convallis enim nulla, et feugiat
-tortor tempus vel. Morbi diam augue, pulvinar at quam sit amet, gravida
-lacinia neque.
-          </textarea>
-          <a href="https://commonmark.org/help/">
-            Styling with Markdown is supported.
-          </a>
-        </section>
-        <section class="project-description">
-          <h2 class="project-description-visibility">Public</h2>
-          <textarea
-            class="project-input-description"
-            name="publicDescription"
-            data-th-text="*{publicDescription}"
-          >
+            <summary>
+              <h2 class="project-description-visibility">Public</h2>
+            </summary>
+            <textarea
+              class="project-input-description"
+              name="publicDescription"
+              data-th-text="*{publicDescription}"
+            >
 Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
 cubilia Curae; Fusce orci eros, feugiat eu ipsum blandit, suscipit
 mollis diam. Ut egestas lacus faucibus, facilisis eros vitae, pharetra
@@ -91,10 +57,62 @@ leo at dignissim. Donec vitae facilisis magna. Cras ipsum nibh, porta eu
 sem in, malesuada ornare tortor. Proin id fermentum justo, sed
 condimentum orci. Phasellus ac scelerisque elit. Aenean bibendum ut erat
 at egestas.
-          </textarea>
-          <a href="https://commonmark.org/help/">
-            Styling with Markdown is supported.
-          </a>
+            </textarea>
+            <a href="https://commonmark.org/help/">
+              Styling with Markdown is supported.
+            </a>
+          </details>
+        </section>
+        <section class="project-description">
+          <details
+            data-th-open="*{!#strings.isEmpty(internalDescription)}"
+          >
+            <summary>
+              <h2 class="project-description-visibility">Internal</h2>
+            </summary>
+            <textarea
+              class="project-input-description"
+              name="internalDescription"
+              placeholder="Internal project description, visible to your peers"
+              data-th-text="*{internalDescription}"
+            >
+Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
+euismod a urna ut, semper maximus tellus. Phasellus mollis volutpat
+dictum. Suspendisse potenti. Nam eu lectus ac quam mollis dictum sit
+amet finibus diam. Cras eget mauris semper, interdum nulla eu, bibendum
+orci. Quisque ut euismod elit. Quisque convallis enim nulla, et feugiat
+tortor tempus vel. Morbi diam augue, pulvinar at quam sit amet, gravida
+lacinia neque.
+            </textarea>
+            <a href="https://commonmark.org/help/">
+              Styling with Markdown is supported.
+            </a>
+          </details>
+        </section>
+        <section class="project-description">
+          <details
+            data-th-open="*{!#strings.isEmpty(privateDescription)}"
+          >
+            <summary>
+              <h2 class="project-description-visibility">Private</h2>
+            </summary>
+            <textarea
+              class="project-input-description"
+              name="privateDescription"
+              placeholder="Private project description, visible only to you"
+              data-th-text="*{privateDescription}"
+            >
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a
+justo et ipsum gravida cursus. Proin aliquet in libero id tempor.
+Pellentesque suscipit placerat egestas. Phasellus facilisis nibh leo,
+quis pretium odio gravida id. Morbi nibh diam, elementum posuere enim
+non, vestibulum accumsan nunc. Curabitur scelerisque pulvinar varius.
+Cras ultrices rutrum tristique.
+            </textarea>
+            <a href="https://commonmark.org/help/">
+              Styling with Markdown is supported.
+            </a>
+          </details>
         </section>
       </section>
       <section
