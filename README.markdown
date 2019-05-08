@@ -22,10 +22,6 @@ who have made this project better!
 
 This project is written in Java 11,
 and you will need OpenJDK 11 installed.
-Note that as of this writing,
-Ubuntu 18.04 contains OpenJDK 10;
-you may follow these
-[instructions on installing OpenJDK 11 on Ubuntu](https://www.linuxuprising.com/2019/01/how-to-install-openjdk-11-in-ubuntu.html).
 
 ## IDE
 
