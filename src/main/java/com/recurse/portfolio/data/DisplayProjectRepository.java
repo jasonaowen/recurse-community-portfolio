@@ -84,6 +84,46 @@ public class DisplayProjectRepository {
         }
     }
 
+    public Page<DisplayProject> findProjectsByAuthorForUser(
+        User author,
+        User requestor,
+        Pageable pageable
+    ) {
+        if (requestor == null) {
+            return new PageImpl<>(
+                toDisplayProject(
+                    projectRepository.getPublicProjectsWithAuthor(
+                        author.getUserId(),
+                        pageable.getPageSize(),
+                        (int) pageable.getOffset()
+                    ),
+                    requestor
+                ),
+                pageable,
+                projectRepository.getPublicProjectsWithAuthorCount(
+                    author.getUserId()
+                )
+            );
+        } else {
+            return new PageImpl<>(
+                toDisplayProject(
+                    projectRepository.getProjectsVisibleToUserWithAuthor(
+                        requestor.getUserId(),
+                        author.getUserId(),
+                        pageable.getPageSize(),
+                        (int) pageable.getOffset()
+                    ),
+                    requestor
+                ),
+                pageable,
+                projectRepository.getProjectsVisibleToUserWithAuthorCount(
+                    requestor.getUserId(),
+                    author.getUserId()
+                )
+            );
+        }
+    }
+
     private List<DisplayProject> toDisplayProject(
         List<ProjectAuthorTag> input,
         User user

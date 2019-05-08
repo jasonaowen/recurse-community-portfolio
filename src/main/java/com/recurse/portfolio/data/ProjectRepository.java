@@ -169,4 +169,69 @@ public interface ProjectRepository
         ") " +
         "select count(*) from visible_projects")
     int getProjectsVisibleToUserWithTagCount(int userId, int tagId);
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "  where p.visibility = 'PUBLIC'" +
+        "    and pa.author_id = :authorId" +
+        "  order by p.project_id desc" +
+        "  limit :limit" +
+        "  offset :offset" +
+        ") " + SELECT)
+    List<ProjectAuthorTag> getPublicProjectsWithAuthor(
+        int authorId,
+        int limit,
+        int offset
+    );
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "  where p.visibility = 'PUBLIC'" +
+        "    and pa.author_id = :authorId" +
+        ") select count(*) from visible_projects")
+    int getPublicProjectsWithAuthorCount(int authorId);
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "    left outer join project_authors coauthors" +
+        "      on p.project_id = coauthors.project_id" +
+        "        and pa.author_id != coauthors.author_id" +
+        "  where pa.author_id = :authorId" +
+        "    and (p.visibility in ('PUBLIC', 'INTERNAL')" +
+        "      or pa.author_id = :userId" +
+        "      or coauthors.author_id = :userId)" +
+        "  order by p.project_id desc" +
+        "  limit :limit" +
+        "  offset :offset" +
+        ") " + SELECT)
+    List<ProjectAuthorTag> getProjectsVisibleToUserWithAuthor(
+        int userId,
+        int authorId,
+        int limit,
+        int offset
+    );
+
+    @Query("with visible_projects as (" +
+        "  select p.project_id" +
+        "  from projects p" +
+        "    inner join project_authors pa" +
+        "      on p.project_id = pa.project_id" +
+        "    left outer join project_authors coauthors" +
+        "      on p.project_id = coauthors.project_id" +
+        "        and pa.author_id != coauthors.author_id" +
+        "  where pa.author_id = :authorId" +
+        "    and (p.visibility in ('PUBLIC', 'INTERNAL')" +
+        "      or pa.author_id = :userId" +
+        "      or coauthors.author_id = :userId)" +
+        ") select count(*) from visible_projects")
+    int getProjectsVisibleToUserWithAuthorCount(int userId, int authorId);
 }
