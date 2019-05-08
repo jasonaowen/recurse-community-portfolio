@@ -16,7 +16,10 @@
     <a href="common.html">Authors list fragment</a>
   </section>
   <section class="project-descriptions">
-    <section class="project-description">
+    <section
+      class="project-description"
+      data-th-unless="${#strings.isEmpty(project.publicDescription)}"
+    >
       <h2 class="project-description-visibility">Public</h2>
       <div data-th-utext="${project.publicDescription}">
         Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
@@ -34,7 +37,10 @@
         at egestas.
       </div>
     </section>
-    <section class="project-description">
+    <section
+      class="project-description"
+      data-th-unless="${#strings.isEmpty(project.internalDescription)}"
+    >
       <h2 class="project-description-visibility">Internal</h2>
       <div data-th-utext="${project.internalDescription}">
         Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
@@ -46,7 +52,10 @@
         lacinia neque.
       </div>
     </section>
-    <section class="project-description">
+    <section
+      class="project-description"
+      data-th-unless="${#strings.isEmpty(project.privateDescription)}"
+    >
       <h2 class="project-description-visibility">Private</h2>
       <div data-th-utext="${project.privateDescription}">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a
