@@ -21,8 +21,7 @@
   <div
     data-th-replace="~{pagination :: pagination(
       @{/tag/{id}(id=${tag.tagId})},
-      ${page},
-      ${projects.getTotalPages()}
+      ${projects}
     )}"
   >
     <a href="../pagination.html">Pagination fragment</a>

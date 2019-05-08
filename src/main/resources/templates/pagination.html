@@ -5,11 +5,15 @@
   <link rel="stylesheet" href="../../static/style.css"/>
 </head>
 <body>
-<section class="pagination" data-th-fragment="pagination(path, page, totalPages)">
+<section class="pagination" data-th-fragment="pagination(path, page)">
   <div class="pagination-previous">
     <a
       href="#"
-      data-th-href="@{{path}(path=${path}, page=${page.previousOrFirst().pageNumber}, size=${page.pageSize})}"
+      data-th-href="@{{path}(
+        path=${path},
+        page=${page.previousPageable().pageNumber},
+        size=${page.size}
+      )}"
       data-th-if="${page.hasPrevious()}"
     >
       &#x2190; Previous
@@ -18,8 +22,12 @@
   <div class="pagination-next">
     <a
       href="#"
-      data-th-if="${totalPages} gt (${page.pageNumber} + 1)"
-      data-th-href="@{{path}(path=${path}, page=${page.next().pageNumber}, size=${page.pageSize})}"
+      data-th-if="${page.hasNext()}"
+      data-th-href="@{{path}(
+        path=${path},
+        page=${page.nextPageable().pageNumber},
+        size=${page.size}
+      )}"
     >
       Next &#x2192;
     </a>

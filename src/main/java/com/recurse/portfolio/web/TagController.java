@@ -38,7 +38,6 @@ public class TagController {
         );
         return new ModelAndView("tags/tag")
             .addObject("projects", projects)
-            .addObject("page", pageable)
             .addObject("tag", tag);
     }
 }

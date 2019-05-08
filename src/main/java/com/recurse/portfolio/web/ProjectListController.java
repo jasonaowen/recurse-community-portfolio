@@ -26,7 +26,6 @@ public class ProjectListController {
             pageable
         );
         return new ModelAndView("projects/list")
-            .addObject("projects", projects)
-            .addObject("page", pageable);
+            .addObject("projects", projects);
     }
 }
