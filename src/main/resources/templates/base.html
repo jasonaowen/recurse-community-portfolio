@@ -14,7 +14,13 @@
 <body>
   <header>
     <h1 class="header-element header-sitename">
-      Recurse Center Community Portfolio
+      <a
+        class="header-sitename-link"
+        href="home.html"
+        data-th-href="@{/}"
+      >
+        Recurse Center Community Portfolio
+      </a>
     </h1>
     <div class="header-element header-user" data-th-if="${currentUser}">
       Hello,

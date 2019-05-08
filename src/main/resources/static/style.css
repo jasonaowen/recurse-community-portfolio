@@ -21,6 +21,11 @@ header {
   margin-right: auto;
 }
 
+.header-sitename-link {
+  color: black;
+  text-decoration: none;
+}
+
 .header-user {
   order: 9
 }
