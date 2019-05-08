@@ -97,6 +97,11 @@ at egestas.
           </a>
         </section>
       </section>
+      <section
+        data-th-replace="~{projects/common :: editTags(${project.tags}, ${allTags})}"
+      >
+        <a href="common.html">Tags list fragment</a>
+      </section>
       <section class="project-settings">
         <div
           data-th-replace="~{visibility :: settings('Project visibility', *{visibility}, 'visibility')}"

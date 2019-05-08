@@ -169,3 +169,54 @@ footer {
 .input-error {
   color: red;
 }
+
+.project-tags-edit-title,
+.project-tags-title {
+  display: inline;
+}
+
+.project-tags-edit-list,
+.project-tags-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.tag-title-name,
+.project-tags-edit-list-item,
+.project-tags-list-item {
+  background-color: #eee;
+  border-radius: .5em;
+  display: inline;
+  margin: .25em;
+  padding: .5em;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pagination-previous,
+.pagination-next {
+  text-align: center;
+  width: 7em;
+}
+
+.global-project-list-item-tag-list {
+  display: flex;
+  font-size: smaller;
+}
+
+.global-project-list-item-tag-list-item {
+  display: inline;
+  padding: .2em;
+  background-color: #eee;
+  margin: .1em .25em;
+  border-radius: .25em;
+}
+
+.global-project-list-item-tag-list-item-link,
+.project-tags-list-item-link {
+  color: black;
+  text-decoration: none;
+}

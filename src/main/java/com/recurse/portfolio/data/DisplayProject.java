@@ -1,7 +1,5 @@
-package com.recurse.portfolio.web;
+package com.recurse.portfolio.data;
 
-import com.recurse.portfolio.data.Project;
-import com.recurse.portfolio.data.User;
 import lombok.Value;
 
 import java.util.Set;
@@ -12,6 +10,7 @@ public class DisplayProject {
     int projectId;
     String name;
     Set<DisplayAuthor> authors;
+    Set<Tag> tags;
 
     public static DisplayProject fromProjectForUser(
         Project project,
@@ -22,7 +21,8 @@ public class DisplayProject {
             project.getName(),
             project.getAuthors().stream()
                 .map(u -> DisplayAuthor.fromUserForUser(u, currentUser))
-                .collect(Collectors.toUnmodifiableSet())
+                .collect(Collectors.toUnmodifiableSet()),
+            project.getTags()
         );
     }
 }

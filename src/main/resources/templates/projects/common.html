@@ -51,5 +51,67 @@
     </li>
   </ul>
 </section>
+<section
+  class="project-tags-edit"
+  data-th-fragment="editTags(selectedTags, allTags)"
+>
+  <h2 class="project-tags-edit-title">Tags</h2>
+  <ul
+    class="project-tags-edit-list"
+    data-th-remove="all-but-first"
+  >
+    <li
+      class="project-tags-edit-list-item"
+      data-th-each="tag : ${allTags}"
+    >
+      <label>
+        <input
+          type="checkbox"
+          name="tags"
+          value="1"
+          data-th-value="${tag.tagId}"
+          data-th-checked="${#lists.contains(selectedTags, tag)}"
+        />
+        <span data-th-text="${tag.name}">Example Tag</span>
+      </label>
+    </li>
+    <li class="project-tags-edit-list-item"><label>
+      <input type="checkbox"/>
+      <span>Second Tag</span>
+    </label></li>
+    <li class="project-tags-edit-list-item"><label>
+      <input type="checkbox" checked/>
+      <span>Third Tag</span>
+    </label></li>
+  </ul>
+</section>
+<section
+  class="project-tags"
+  data-th-fragment="showTags(tags)"
+  data-th-unless="${#sets.isEmpty(tags)}"
+>
+  <h2 class="project-tags-title">Tags</h2>
+  <ul
+    class="project-tags-list"
+    data-th-remove="all-but-first"
+  >
+    <li
+      class="project-tags-list-item"
+      data-th-each="tag : ${tags}"
+    >
+      <a
+        class="project-tags-list-item-link"
+        href="../tags/tag.html"
+        data-th-href="@{/tag/{id}(id=${tag.tagId})}"
+        data-th-text="${tag.name}"
+      >
+        Example Tag
+      </a>
+    </li>
+    <li class="project-tags-list-item">Second Tag</li>
+    <li class="project-tags-list-item">Third Tag</li>
+    <li class="project-tags-list-item">Fourth Tag</li>
+  </ul>
+</section>
 </body>
 </html>

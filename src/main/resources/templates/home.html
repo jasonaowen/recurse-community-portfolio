@@ -6,38 +6,14 @@
 <body>
 <main>
   <h1>Recent Projects</h1>
-  <ul class="global-project-list">
-    <li
-      class="global-project-list-item"
-      data-th-each="project : ${projects}"
-    >
-      <a
-        href="projects/public.html"
-        data-th-href="@{/project/{id}(id=${project.projectId})}"
-        data-th-text="${project.name}"
-      >Project Name</a>,
-      by
-      <span
-        class="global-project-list-item-author"
-        data-th-each="author : ${project.authors}"
-      >
-        <a
-          href="users/public.html"
-          data-th-href="@{/user/{id}(id=${author.userId})}"
-          data-th-text="${author.name}"
-        >Author Name</a><span
-        data-th-if="not ${authorStat.last}"
-      >, </span>
-      </span>
-    </li>
-    <li
-      class="global-project-list-item"
-      data-th-remove="all"
-    >
-      <a href="../projects/public.html">Second Project</a>,
-      by <a href="users/public.html">Second Author</a>
-    </li>
-  </ul>
+  <div data-th-replace="~{projects/list :: list(${projects})}">
+    <a href="projects/list.html">Project list fragment</a>
+  </div>
+  <div>
+    <a href="projects/list.html" data-th-href="@{/projects/}">
+      See more!
+    </a>
+  </div>
 </main>
 </body>
 </html>

@@ -58,6 +58,11 @@
       </div>
     </section>
   </section>
+  <section
+    data-th-replace="~{projects/common :: showTags(${project.tags})}"
+  >
+    <a href="common.html">Tags list fragment</a>
+  </section>
   <section class="project-settings">
     <div
       data-th-replace="~{visibility :: view('Project visibility', ${project.visibility})}"

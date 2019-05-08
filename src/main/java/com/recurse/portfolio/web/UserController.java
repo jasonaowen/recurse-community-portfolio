@@ -1,6 +1,6 @@
 package com.recurse.portfolio.web;
 
-import com.recurse.portfolio.data.Project;
+import com.recurse.portfolio.data.DisplayProjectRepository;
 import com.recurse.portfolio.data.User;
 import com.recurse.portfolio.data.UserRepository;
 import com.recurse.portfolio.security.CurrentUser;
@@ -9,6 +9,7 @@ import com.recurse.portfolio.security.VisibilityException;
 import com.recurse.portfolio.security.VisibilityPolicy;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.function.Function;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
 
 @Controller
 @Log
 public class UserController {
-    private static final List<String> ALL_VISIBILITIES = List.of(
-        Visibility.PUBLIC.toString(),
-        Visibility.INTERNAL.toString(),
-        Visibility.PRIVATE.toString()
-    );
-    private static final List<String> PEER_VISIBILITIES = List.of(
-        Visibility.PUBLIC.toString(),
-        Visibility.INTERNAL.toString()
-    );
-    private static final List<String> PUBLIC_VISIBILITIES = List.of(
-        Visibility.PUBLIC.toString()
-    );
+    @Autowired
+    DisplayProjectRepository displayProjectRepository;
 
     @Autowired
     UserRepository repository;
@@ -45,20 +34,20 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public ModelAndView showUser(
         @CurrentUser User currentUser,
-        @PathVariable Integer userId
+        @PathVariable Integer userId,
+        Pageable pageable
     ) {
         User requestedUser = repository.findById(userId)
             .orElseThrow(() -> new NotFoundException("user", userId));
 
         var policy = new VisibilityPolicy<>(
             requestedUser.getProfileVisibility(),
-            getView("users/self", ALL_VISIBILITIES),
-            getView("users/peer", PEER_VISIBILITIES),
-            getView("users/public", PUBLIC_VISIBILITIES)
+            "users/self",
+            "users/peer",
+            "users/public"
         );
 
-        ModelAndView mv = policy.evaluate(requestedUser, currentUser)
-            .apply(userId);
+        var mv = new ModelAndView(policy.evaluate(requestedUser, currentUser));
 
         requestedUser.setPublicBio(renderMarkdownToHtml(
             requestedUser.getPublicBio()
@@ -67,18 +56,15 @@ public class UserController {
             requestedUser.getInternalBio()
         ));
 
-        return mv.addObject("user", requestedUser);
-    }
-
-    private Function<Integer, ModelAndView> getView(
-        String viewName,
-        List<String> visibilities
-    ) {
-        return (authorId) -> new ModelAndView(viewName)
-            .addObject("projects", repository.findProjectsByAuthor(
-                authorId,
-                visibilities
-            ));
+        return mv.addObject("user", requestedUser)
+            .addObject(
+                "projects",
+                displayProjectRepository.findProjectsByAuthorForUser(
+                    requestedUser,
+                    currentUser,
+                    pageable
+                )
+            );
     }
 
     @GetMapping("/user/{userId}/edit")

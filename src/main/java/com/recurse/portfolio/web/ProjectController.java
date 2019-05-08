@@ -1,7 +1,10 @@
 package com.recurse.portfolio.web;
 
+import com.recurse.portfolio.data.DisplayAuthor;
 import com.recurse.portfolio.data.Project;
 import com.recurse.portfolio.data.ProjectRepository;
+import com.recurse.portfolio.data.Tag;
+import com.recurse.portfolio.data.TagRepository;
 import com.recurse.portfolio.data.User;
 import com.recurse.portfolio.security.CurrentUser;
 import com.recurse.portfolio.security.Visibility;
@@ -28,6 +31,9 @@ public class ProjectController {
     @Autowired
     ProjectRepository repository;
 
+    @Autowired
+    TagRepository tagRepository;
+
     @GetMapping("/project/new")
     public ModelAndView getNewProject(
         @CurrentUser User currentUser
@@ -40,7 +46,8 @@ public class ProjectController {
         return new ModelAndView("projects/new")
             .addObject("authors", Set.of(
                 DisplayAuthor.fromUserForUser(currentUser, currentUser)))
-            .addObject("project", project);
+            .addObject("project", project)
+            .addObject("allTags", tagRepository.findAll());
     }
 
     @PostMapping("/project/")
@@ -65,6 +72,12 @@ public class ProjectController {
                 savedProject.getProjectId(),
                 currentUser.getUserId()
             );
+            for (Tag tag : postedProject.getTags()) {
+                repository.addProjectTag(
+                    savedProject.getProjectId(),
+                    tag.getTagId()
+                );
+            }
             return new ModelAndView(new RedirectView(
                 "/project/" + savedProject.getProjectId()
             ));
@@ -79,6 +92,7 @@ public class ProjectController {
         Project project = repository.findById(projectId)
             .orElseThrow(() -> new NotFoundException("project", projectId));
         Set<User> authors = repository.findProjectAuthors(projectId);
+        project.setTags(repository.findProjectTags(projectId));
 
         var policy = new VisibilityPolicy<>(
             project.getVisibility(),
@@ -112,6 +126,7 @@ public class ProjectController {
     ) {
         Project project = repository.findById(projectId)
             .orElseThrow(() -> new NotFoundException("project", projectId));
+        project.setTags(repository.findProjectTags(projectId));
         Set<User> authors = repository.findProjectAuthors(projectId);
 
         if (!authors.contains(currentUser)) {
@@ -123,7 +138,8 @@ public class ProjectController {
             .collect(Collectors.toUnmodifiableSet());
         return new ModelAndView("projects/edit")
             .addObject("project", project)
-            .addObject("authors", displayAuthors);
+            .addObject("authors", displayAuthors)
+            .addObject("allTags", tagRepository.findAll());
     }
 
     @PostMapping("/project/{id}/edit")
@@ -147,6 +163,17 @@ public class ProjectController {
         } else {
             updateMutableProjectValues(project, postedProject);
             repository.save(project);
+            repository.findProjectTags(projectId)
+                .stream()
+                .filter(t -> !postedProject.getTags().contains(t))
+                .map(Tag::getTagId)
+                .forEach(tagId -> repository.removeProjectTag(projectId, tagId));
+            for (Tag tag : postedProject.getTags()) {
+                repository.addProjectTag(
+                    projectId,
+                    tag.getTagId()
+                );
+            }
 
             return new ModelAndView(new RedirectView("/project/" + projectId));
         }
