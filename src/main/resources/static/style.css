@@ -151,6 +151,7 @@ footer {
 
 .project-description-visibility {
   display: inline;
+  font-size: large;
 }
 
 .project-input-description {

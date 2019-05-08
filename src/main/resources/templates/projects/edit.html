@@ -37,8 +37,14 @@
             data-th-open="*{!#strings.isEmpty(publicDescription)}"
           >
             <summary>
-              <h2 class="project-description-visibility">Public</h2>
+              <h2 class="project-description-visibility">
+                Public description of project
+              </h2>
             </summary>
+            <div>
+              The public description is shown to everyone who can see the
+              project.
+            </div>
             <textarea
               class="project-input-description"
               name="publicDescription"
@@ -68,12 +74,17 @@ at egestas.
             data-th-open="*{!#strings.isEmpty(internalDescription)}"
           >
             <summary>
-              <h2 class="project-description-visibility">Internal</h2>
+              <h2 class="project-description-visibility">
+                Internal description of project
+              </h2>
             </summary>
+            <div>
+              The internal description is only shown to other logged-in users,
+              if they can see the project.
+            </div>
             <textarea
               class="project-input-description"
               name="internalDescription"
-              placeholder="Internal project description, visible to your peers"
               data-th-text="*{internalDescription}"
             >
 Nulla vel tellus sit amet sem ullamcorper suscipit. Duis mi elit,
@@ -94,12 +105,16 @@ lacinia neque.
             data-th-open="*{!#strings.isEmpty(privateDescription)}"
           >
             <summary>
-              <h2 class="project-description-visibility">Private</h2>
+              <h2 class="project-description-visibility">
+                Private description of project
+              </h2>
             </summary>
+            <div>
+              The private description is only shown to you.
+            </div>
             <textarea
               class="project-input-description"
               name="privateDescription"
-              placeholder="Private project description, visible only to you"
               data-th-text="*{privateDescription}"
             >
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a
