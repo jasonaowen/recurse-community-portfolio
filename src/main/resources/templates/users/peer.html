@@ -19,7 +19,10 @@
       <div class="user-name">
         <span data-th-text="${user.internalName}">Internal Name</span>
       </div>
-      <div class="user-bio">
+      <div
+        class="user-bio"
+        data-th-unless="${#strings.isEmpty(user.internalBio)}"
+      >
         Bio:
         <div data-th-utext="${user.internalBio}">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -43,7 +46,10 @@
       <div class="user-name">
         <span data-th-text="${user.publicName}">Public Name</span>
       </div>
-      <div class="user-bio">
+      <div
+        class="user-bio"
+        data-th-unless="${#strings.isEmpty(user.publicBio)}"
+      >
         Bio:
         <div data-th-utext="${user.publicBio}">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
