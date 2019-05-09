@@ -17,9 +17,9 @@
           type="radio"
           name="visibility"
           required
-          value="${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
           data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
           data-th-name="${fieldName}"
+          data-th-value="${T(com.recurse.portfolio.security.Visibility).PRIVATE}"
         />
         Private - only you can view
       </label>
@@ -30,9 +30,9 @@
           type="radio"
           name="visibility"
           required
-          value="${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
           data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
           data-th-name="${fieldName}"
+          data-th-value="${T(com.recurse.portfolio.security.Visibility).INTERNAL}"
         />
         Internal - other logged-in users can view
       </label>
@@ -43,9 +43,9 @@
           type="radio"
           name="visibility"
           required
-          value="${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
           data-th-checked="${currentVisibility} == ${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
           data-th-name="${fieldName}"
+          data-th-value="${T(com.recurse.portfolio.security.Visibility).PUBLIC}"
         />
         Public - anyone can view
       </label>
