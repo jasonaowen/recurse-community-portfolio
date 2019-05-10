@@ -126,7 +126,8 @@ Configure your Heroku app with the credentials:
 
 ```sh
 $ heroku config:set \
-    ACCESS_TOKEN=your_access_token
+    ACCESS_TOKEN=your_access_token \
+    CALLBACK_HOST=https://example.com \
     CLIENT_ID=your_client_id \
     CLIENT_SECRET=your_client_secret
 ```
