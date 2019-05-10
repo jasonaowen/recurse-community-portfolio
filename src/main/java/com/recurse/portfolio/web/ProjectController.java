@@ -62,7 +62,8 @@ public class ProjectController {
         }
         if (bindingResult.hasErrors()) {
             return new ModelAndView("projects/new")
-                .addObject("authors", Set.of(currentUser))
+                .addObject("authors", Set.of(
+                    DisplayAuthor.fromUserForUser(currentUser, currentUser)))
                 .addObject("project", postedProject);
         } else {
             Project newProject = new Project();
