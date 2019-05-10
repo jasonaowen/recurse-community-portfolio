@@ -5,7 +5,7 @@ spring.security.oauth2.client:
       client-secret: ${CLIENT_SECRET}
       client-name: Recurse Center
       authorization-grant-type: authorization_code
-      redirect-uri-template: "${CALLBACK_HOST}/login/oauth2/code/{registrationId}"
+      redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
   provider:
     recurse:
       authorization-uri: https://www.recurse.com/oauth/authorize
