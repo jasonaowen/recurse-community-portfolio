@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class Application {
     private static final List<String> REQUIRED_ENVIRONMENT_VARIABLES = List.of(
+        "CALLBACK_HOST",
         "CLIENT_ID",
         "CLIENT_SECRET",
         "ACCESS_TOKEN",
