@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
+<head>
+  <title>Request Headers</title>
+  <link rel="stylesheet" href="../../static/style.css"/>
+</head>
+<body>
+<main class="tag">
+  <h1>Request Headers</h1>
+  <pre data-th-text=${headers}>X-Header-Example: example content</pre>
+</main>
+</body>
+</html>
