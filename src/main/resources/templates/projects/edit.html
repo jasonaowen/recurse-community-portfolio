@@ -8,7 +8,7 @@
 <main class="project">
   <form
     data-th-object="${project}"
-    data-th-action="@{/project/{id}/edit(id=${project.projectId})}"
+    data-th-action="@{/project/edit/{id}(id=${project.projectId})}"
     method="post"
   >
     <section class="project-input">
