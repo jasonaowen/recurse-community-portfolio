@@ -2,7 +2,10 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0;
+}
+
+a {
+    text-decoration: none;
 }
 
 header {
@@ -31,7 +34,11 @@ header {
 }
 
 main {
-  margin: 1em;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  border-top: 2px solid #999;
+   width: 960px;
 }
 
 footer {
@@ -201,6 +208,14 @@ footer {
   width: 7em;
 }
 
+.global-project-list-item {
+  flex-direction: row;
+  font-size: smaller;
+  margin: 10px;
+  padding: 10px;
+  border-top: 1px #bbb solid;
+}
+
 .global-project-list-item-tag-list {
   display: flex;
   font-size: smaller;
@@ -218,4 +233,17 @@ footer {
 .project-tags-list-item-link {
   color: black;
   text-decoration: none;
+}
+
+.global-project-list {
+  list-style-type: none;
+  padding: 0px;
+  }
+
+.tag-list-title {
+    text-align: center;
+}
+
+.tag-page-description {
+    padding: 20px;
 }

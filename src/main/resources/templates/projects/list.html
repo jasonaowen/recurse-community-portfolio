@@ -26,13 +26,24 @@
           class="global-project-list-item-author"
           data-th-each="author : ${project.authors}"
         >
+          <div>
+            <img
+                    class="project-author-list-item-image"
+                    src="../../static/user-placeholder.png"
+                    data-th-src="${author.imageUrl}"
+            />
+            <br>
           <a
-            href="users/public.html"
-            data-th-href="@{/user/{id}(id=${author.userId})}"
-            data-th-text="${author.name}"
-          >Author Name</a><span
-            data-th-if="not ${authorStat.last}"
-          >, </span>
+                  href="users/public.html"
+                  data-th-href="@{/user/{id}(id=${author.userId})}"
+                  data-th-text="${author.name}"
+          >Author Name</a>
+          <span
+                  data-th-if="not ${authorStat.last}"
+          >,
+          </span>
+
+          </div>
         </span>
         <ul class="global-project-list-item-tag-list">
           <li
