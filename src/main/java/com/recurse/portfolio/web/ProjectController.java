@@ -1,5 +1,6 @@
 package com.recurse.portfolio.web;
 
+import com.github.slugify.Slugify;
 import com.recurse.portfolio.data.DisplayAuthor;
 import com.recurse.portfolio.data.Project;
 import com.recurse.portfolio.data.ProjectRepository;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 
 import static com.recurse.portfolio.web.MarkdownHelper.renderMarkdownToHtml;
 
+
 @Controller
 public class ProjectController {
     @Autowired
@@ -33,6 +35,8 @@ public class ProjectController {
 
     @Autowired
     TagRepository tagRepository;
+
+    private Slugify slugifier = new Slugify();
 
     @GetMapping("/project/new")
     public ModelAndView getNewProject(
@@ -50,7 +54,7 @@ public class ProjectController {
             .addObject("allTags", tagRepository.findAll());
     }
 
-    @PostMapping("/project/")
+    @PostMapping("/project/new")
     @Transactional
     public ModelAndView postNewProject(
         @CurrentUser User currentUser,
@@ -79,28 +83,56 @@ public class ProjectController {
                     tag.getTagId()
                 );
             }
-            return new ModelAndView(new RedirectView(
-                "/project/" + savedProject.getProjectId()
-            ));
+
+            return getSlugifiedModelAndView(savedProject.getProjectId(), savedProject.getName());
         }
     }
 
-    @GetMapping("/project/{projectId}")
+    @GetMapping("/project/{projectId}/**")
+    public ModelAndView showProjectRedirect(
+            @CurrentUser User currentUser,
+            @PathVariable Integer projectId
+    ) {
+        return showProject(currentUser, projectId, "");
+    }
+
+    @GetMapping("/project/{projectId}/{projectName}")
     public ModelAndView showProject(
         @CurrentUser User currentUser,
-        @PathVariable Integer projectId
+        @PathVariable Integer projectId,
+        @PathVariable String projectName
     ) {
+        // ensure provided project ID is valid
         Project project = repository.findById(projectId)
             .orElseThrow(() -> new NotFoundException("project", projectId));
-        Set<User> authors = repository.findProjectAuthors(projectId);
-        project.setTags(repository.findProjectTags(projectId));
 
         var policy = new VisibilityPolicy<>(
-            project.getVisibility(),
-            "projects/author",
-            "projects/peer",
-            "projects/public"
-        );
+                project.getVisibility(),
+                "projects/author",
+                "projects/peer",
+                "projects/public"
+            );
+
+        Set<User> authors = repository.findProjectAuthors(projectId);
+
+        // will throw exception if current user is denied access to project
+        policy.evaluate(authors, currentUser);
+
+        // retrieve name of project from model
+        String projectNameFromModel = project.getName();
+
+        String slugifiedProjectName = slugifyString(projectNameFromModel);
+
+        // if slugified version of project name was NOT used in the URL,
+        // replace project name with its slugified version and redirect
+        if (!projectName.equals(slugifiedProjectName))
+        {
+            return new ModelAndView(new RedirectView(
+                    "/project/" + projectId + "/" + slugifiedProjectName
+                ));
+        }
+
+        project.setTags(repository.findProjectTags(projectId));
 
         project.setPublicDescription(renderMarkdownToHtml(
             project.getPublicDescription()
@@ -115,12 +147,13 @@ public class ProjectController {
         Set<DisplayAuthor> displayAuthors = authors.stream()
             .map(a -> DisplayAuthor.fromUserForUser(a, currentUser))
             .collect(Collectors.toUnmodifiableSet());
+
         return new ModelAndView(policy.evaluate(authors, currentUser))
             .addObject("project", project)
             .addObject("authors", displayAuthors);
     }
 
-    @GetMapping("/project/{projectId}/edit")
+    @GetMapping("/project/edit/{projectId}")
     public ModelAndView getEditProject(
         @CurrentUser User currentUser,
         @PathVariable Integer projectId
@@ -137,13 +170,15 @@ public class ProjectController {
         Set<DisplayAuthor> displayAuthors = authors.stream()
             .map(a -> DisplayAuthor.fromUserForUser(a, currentUser))
             .collect(Collectors.toUnmodifiableSet());
+
+
         return new ModelAndView("projects/edit")
             .addObject("project", project)
             .addObject("authors", displayAuthors)
             .addObject("allTags", tagRepository.findAll());
     }
 
-    @PostMapping("/project/{id}/edit")
+    @PostMapping("/project/edit/{id}")
     public ModelAndView postEditProject(
         @CurrentUser User currentUser,
         @PathVariable(name = "id") Integer projectId,
@@ -176,7 +211,7 @@ public class ProjectController {
                 );
             }
 
-            return new ModelAndView(new RedirectView("/project/" + projectId));
+            return getSlugifiedModelAndView(projectId, project.getName());
         }
     }
 
@@ -189,5 +224,17 @@ public class ProjectController {
         project.setInternalDescription(postedProject.getInternalDescription());
         project.setPrivateDescription(postedProject.getPrivateDescription());
         project.setVisibility(postedProject.getVisibility());
+    }
+
+    // slugify, i.e. create URL-friendly version of, the project name
+    private String slugifyString(String text)
+    {
+        return slugifier.slugify(text);
+    }
+
+    private ModelAndView getSlugifiedModelAndView(int projectId, String projectName)
+    {
+        String slugifiedProjectName = slugifyString(projectName);
+        return new ModelAndView(new RedirectView("/project/" + projectId + "/" + slugifiedProjectName));
     }
 }
