@@ -32,7 +32,10 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-oauth2-client')
   compile('org.springframework.boot:spring-boot-starter-security')
   compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-  compile('org.springframework.boot:spring-boot-starter-web')
+  compile('org.springframework.boot:spring-boot-starter-undertow')
+  compile('org.springframework.boot:spring-boot-starter-web') {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+  }
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
