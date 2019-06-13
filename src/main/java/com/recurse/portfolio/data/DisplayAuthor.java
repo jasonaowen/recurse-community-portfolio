@@ -15,7 +15,7 @@ public class DisplayAuthor {
     ) {
         switch(sourceUser.getProfileVisibility()) {
             case PRIVATE:
-                if (sourceUser == requestingUser) {
+                if (sourceUser.equals(requestingUser)) {
                     return useInternal(sourceUser);
                 } else {
                     return anonymous();
