@@ -3,7 +3,7 @@ package com.recurse.portfolio.data;
 import lombok.Data;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +14,7 @@ class ProjectAuthorTag {
     Tag tag;
 
     static Collection<Project> collect(List<ProjectAuthorTag> list) {
-        Map<Integer, Project> projectsById = new HashMap<>();
+        Map<Integer, Project> projectsById = new LinkedHashMap<>();
         for (ProjectAuthorTag pa : list) {
             projectsById.putIfAbsent(pa.project.getProjectId(), pa.project);
             projectsById.get(pa.project.getProjectId()).getAuthors().add(
