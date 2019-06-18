@@ -218,6 +218,7 @@ footer {
 
 .global-project-list-item-tag-list {
   display: flex;
+  flex-wrap: wrap;
   font-size: smaller;
 }
 
