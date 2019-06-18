@@ -2,10 +2,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-size: 105%;
+  font-family: arial,helvetica,freesans,sans-serif;
+  margin: 0;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+  color: rgb(35,40,45);
 }
 
 header {
@@ -17,10 +21,10 @@ header {
 
 .header-element {
   margin: 0em 0.5em;
+  font-size: 1em;
 }
 
 .header-sitename {
-  font-size: medium;
   margin-right: auto;
 }
 
@@ -34,16 +38,16 @@ header {
 }
 
 main {
-  margin-top: 20px;
+  margin-top: 1.2em;
   margin-right: auto;
   margin-left: auto;
-  border-top: 2px solid #999;
-   width: 960px;
+  width: 100vw;
 }
 
 footer {
   margin: auto 1em 1em 1em;
   text-align: center;
+  font-size: 1em;
 }
 
 .user-details {
@@ -194,7 +198,7 @@ footer {
   border-radius: .5em;
   display: inline;
   margin: .25em;
-  padding: .5em;
+  padding: 0.4em 0.5em;
 }
 
 .pagination {
@@ -209,17 +213,19 @@ footer {
 }
 
 .global-project-list-item {
+  display: flex;
   flex-direction: row;
-  font-size: smaller;
-  margin: 10px;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 5px;
   border-top: 1px #bbb solid;
 }
 
 .global-project-list-item-tag-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   font-size: smaller;
+  padding-left: 0;
 }
 
 .global-project-list-item-tag-list-item {
@@ -228,6 +234,48 @@ footer {
   background-color: #eee;
   margin: .1em .25em;
   border-radius: .25em;
+}
+
+.global-list-left-column {
+  display: flex;
+}
+
+.global-list-author-images {
+  display: flex;
+  flex-flow: row wrap;
+  flex-shrink: 0;
+  width: 6.5em;
+  margin-right: 0.3em;
+}
+
+.global-list-authors-list {
+  display: flex
+}
+
+.badge-image-container {
+  margin: 0 0.2em 0.2em 0;
+  height: 3em;
+}
+
+.badge-image {
+  width: 3em;
+  height: 3em;
+}
+
+.description-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.description-project-name {
+  font-weight: bold;
+  text-align: left;
+}
+
+.project-tags {
+  max-width: 40em;
+  margin: 1em auto;
 }
 
 .global-project-list-item-tag-list-item-link,
@@ -241,10 +289,27 @@ footer {
   padding: 0px;
   }
 
-.tag-list-title {
-    text-align: center;
+.global-project-list-item-author {
+    font-size: 0.9em;
 }
 
-.tag-page-description {
-    padding: 20px;
+.global-project-author {
+  display: inline-block;
+}
+
+.tag-list-title {
+    text-align: center;
+    font-size: 1.8em;
+    line-height: 160%;
+}
+
+/* Don't use all the space on large devices */
+@media (min-width: 40em) {
+    main {
+      width: 70vw;
+    }
+
+    .global-list-left-column {
+      margin-right: 2em;
+    }
 }
