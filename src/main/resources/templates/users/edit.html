@@ -8,7 +8,7 @@
 <main>
   <form
     data-th-object="${user}"
-    data-th-action="@{/user/{id}/edit(id=${user.userId})}"
+    data-th-action="@{/user/edit/{id}(id=${user.userId})}"
     method="post"
   >
     <section class="user-details">
