@@ -116,14 +116,17 @@ public interface ProjectRepository
         "select count(*) from visible_projects")
     int getProjectsVisibleToUserCount(int userId);
 
-    @Query("with visible_projects as (" +
-        "  select project_id" +
-        "  from project_tags" +
-        "  where tag_id = :tagId" +
-        "  order by project_id desc" +
-        "  limit :limit" +
-        "  offset :offset" +
-        ") " + SELECT)
+   @Query("with visible_projects as (" +
+       "  select p.project_id" +
+       "  from projects p" +
+       "    inner join project_tags pt" +
+       "      on p.project_id = pt.project_id" +
+       "  where pt.tag_id = :tagId" +
+       "    and p.visibility = 'PUBLIC'" +
+       "  order by p.project_id desc" +
+       "  limit :limit" +
+       "  offset :offset" +
+       ") " + SELECT)
     List<ProjectAuthorTag> getPublicProjectsWithTag(
         int tagId,
         int limit,
