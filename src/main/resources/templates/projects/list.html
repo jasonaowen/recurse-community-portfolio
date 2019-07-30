@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" data-th-replace="~{base :: layout(~{::title}, ~{::main})}">
-<head>
-  <title>Recurse Center Community Portfolio</title>
-  <link rel="stylesheet" href="../../static/style.css"/>
-</head>
-<body>
-<main>
-  <h2>Project List</h2>
-  <section>
-    <ul
-      class="global-project-list"
-      data-th-fragment="list(projects)"
-    >
-      <li
-        class="global-project-list-item"
-        data-th-each="project : ${projects}"
-      >
-        <a
-          href="projects/public.html"
-          data-th-href="@{/project/{id}(id=${project.projectId})}"
-          data-th-text="${project.name}"
-        >Project Name</a>,
-        by
-        <span
-          class="global-project-list-item-author"
-          data-th-each="author : ${project.authors}"
-        >
-          <a
-            href="users/public.html"
-            data-th-href="@{/user/{id}(id=${author.userId})}"
-            data-th-text="${author.name}"
-          >Author Name</a><span
-            data-th-if="not ${authorStat.last}"
-          >, </span>
-        </span>
-        <ul class="global-project-list-item-tag-list">
+  <head>
+    <title>Recurse Center Community Portfolio</title>
+    <link rel="stylesheet" href="../../static/style.css"/>
+  </head>
+  <body>
+    <main>
+      <h2>Project List</h2>
+      <section>
+        <ul class="global-project-list" data-th-fragment="list(projects)">
           <li
-            class="global-project-list-item-tag-list-item"
-            data-th-each="tag : ${project.tags}"
+            class="global-project-list-item"
+            data-th-each="project : ${projects}"
           >
-            <a
-              class="global-project-list-item-tag-list-item-link"
-              href="../tags/tag.html"
-              data-th-href="@{/tag/{id}(id=${tag.tagId})}"
-              data-th-text="${tag.name}"
-            >
-              Tag Name
-            </a>
+            <div class="global-list-left-column">
+              <div class="global-list-author-images">
+                <span
+                  data-th-each="author : ${project.authors}"
+                  class="badge-image-container"
+                >
+                  <a data-th-href="@{/user/{id}(id=${author.userId})}">
+                    <img
+                      class="badge-image"
+                      src="../../static/user-placeholder.png"
+                      data-th-src="${author.imageUrl}"
+                  /></a>
+                </span>
+              </div>
+              <div class="global-list-project-title-column">
+                <div class="description-project-name">
+                  <a
+                    href="projects/public.html"
+                    data-th-href="@{/project/{id}(id=${project.projectId})}"
+                    data-th-text="${project.name}"
+                    >Project Name</a
+                  >
+                </div>
+                <div class="global-list-authors-list">
+                  <span
+                    class="global-project-author"
+                    data-th-each="author : ${project.authors}"
+                  >
+                    <div class="description-container">
+                      <div>
+                        <a
+                          class="global-project-list-item-author"
+                          href="users/public.html"
+                          data-th-href="@{/user/{id}(id=${author.userId})}"
+                          data-th-text="${author.name}"
+                          >Author Name</a
+                        ><span
+                          style="margin: 0 0.1em"
+                          data-th-if="not ${authorStat.last}"
+                          >&middot</span
+                        >
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <ul class="global-project-list-item-tag-list">
+                <li
+                  class="global-project-list-item-tag-list-item"
+                  data-th-each="tag : ${project.tags}"
+                >
+                  <a
+                    class="global-project-list-item-tag-list-item-link"
+                    href="../tags/tag.html"
+                    data-th-href="@{/tag/{id}(id=${tag.tagId})}"
+                    data-th-text="${tag.name}"
+                  >
+                    Tag Name
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="global-project-list-item" data-th-remove="all">
+            <a href="../projects/public.html">Second Project</a>, by
+            <a href="users/public.html">Second Author</a>
           </li>
         </ul>
-      </li>
-      <li
-        class="global-project-list-item"
-        data-th-remove="all"
+      </section>
+      <div
+        data-th-replace="~{pagination :: pagination('/projects/', ${projects})}"
       >
-        <a href="../projects/public.html">Second Project</a>,
-        by <a href="users/public.html">Second Author</a>
-      </li>
-    </ul>
-  </section>
-  <div data-th-replace="~{pagination :: pagination('/projects/', ${projects})}">
-    <a href="../pagination.html">Pagination fragment</a>
-  </div>
-</main>
-</body>
+        <a href="../pagination.html">Pagination fragment</a>
+      </div>
+    </main>
+  </body>
 </html>
