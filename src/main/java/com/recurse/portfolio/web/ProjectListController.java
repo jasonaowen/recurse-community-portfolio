@@ -25,6 +25,7 @@ public class ProjectListController {
             currentUser,
             pageable
         );
+
         return new ModelAndView("projects/list")
             .addObject("projects", projects);
     }

@@ -19,7 +19,7 @@
                   data-th-each="author : ${project.authors}"
                   class="badge-image-container"
                 >
-                  <a data-th-href="@{/user/{id}(id=${author.userId})}">
+                  <a data-th-href="@{/user/{id}/{slug}(id=${author.userId}, slug=${author.slugifiedName})}">
                     <img
                       class="badge-image"
                       src="../../static/user-placeholder.png"
@@ -31,7 +31,7 @@
                 <div class="description-project-name">
                   <a
                     href="projects/public.html"
-                    data-th-href="@{/project/{id}(id=${project.projectId})}"
+                    data-th-href="@{/project/{id}/{slug}(id=${project.projectId},slug=${project.slugifiedName})}"
                     data-th-text="${project.name}"
                     >Project Name</a
                   >
@@ -46,7 +46,7 @@
                         <a
                           class="global-project-list-item-author"
                           href="users/public.html"
-                          data-th-href="@{/user/{id}(id=${author.userId})}"
+                          data-th-href="@{/user/{id}/{slug}(id=${author.userId}, slug=${author.slugifiedName})}"
                           data-th-text="${author.name}"
                           >Author Name</a
                         ><span
