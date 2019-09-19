@@ -5,6 +5,7 @@ addons:
   postgresql: "10"
 before_script:
   - createdb -U postgres portfolio
+  - ./gradlew flywayMigrate
 env:
   global:
     - CLIENT_ID=_

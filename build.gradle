@@ -25,7 +25,6 @@ dependencies {
   compile('com.github.slugify:slugify:2.3')
   compile('com.vladsch.flexmark:flexmark-all:0.42.6')
   compile('com.zaxxer:HikariCP:3.3.1')
-  compile('org.flywaydb:flyway-core:5.2.4')
   compile('org.jsoup:jsoup:1.11.3')
   compile('org.postgresql:postgresql:42.2.5')
   compile('org.springframework.boot:spring-boot-starter-data-jdbc')
