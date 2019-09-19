@@ -85,6 +85,13 @@ and then
 Put the database URL and credentials in the `JDBC_DATABASE` variables
 in your `.env` file.
 
+Run the database migrations to create the database structure:
+
+```
+$ source .env
+$ ./gradlew flywayMigrate
+```
+
 Populate the database
 by running the API sync:
 
